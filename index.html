@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>🌟 宝宝学习乐园</title>
+<script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--pink:#FF6B8A;--blue:#5B9EFF;--green:#4ECB71;--yellow:#FFC048;--purple:#A78BFA;--orange:#FF8C52;--red:#E85D5D;--card-shadow:0 4px 16px rgba(0,0,0,.08)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#FFF5F5,#F0F4FF,#FFF9F0);min-height:100vh;min-height:100dvh;overflow-x:hidden;user-select:none;-webkit-user-select:none}
+.header{text-align:center;padding:16px 16px 12px;color:#fff;border-radius:0 0 30px 30px;box-shadow:0 4px 20px rgba(255,107,138,.3);transition:background .4s}
+.header.en{background:linear-gradient(135deg,var(--pink),var(--purple))}
+.header.cn{background:linear-gradient(135deg,var(--red),var(--orange))}
+.header.math{background:linear-gradient(135deg,#12B76A,#34D399)}
+.logo{font-size:24px;font-weight:800;letter-spacing:2px}
+.sub-logo{font-size:12px;opacity:.85;margin-top:2px}
+
+.lang-bar{display:flex;justify-content:center;gap:16px;padding:14px 16px;background:#fff;margin:12px 16px;border-radius:20px;box-shadow:var(--card-shadow)}
+.lang-btn{flex:1;max-width:150px;padding:14px 10px;border:none;border-radius:16px;font-size:18px;font-weight:700;cursor:pointer;transition:all .3s}
+.lang-btn.en{background:#F3F4F6;color:#888;border:2px solid #E5E7EB}
+.lang-btn.cn{background:#F3F4F6;color:#888;border:2px solid #E5E7EB}
+.lang-btn.math{background:#F3F4F6;color:#888;border:2px solid #E5E7EB}
+.lang-btn.en.active{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(91,158,255,.4);transform:scale(1.05)}
+.lang-btn.cn.active{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(232,93,93,.4);transform:scale(1.05)}
+.lang-btn.math.active{background:linear-gradient(135deg,#12B76A,#34D399);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(18,183,106,.4);transform:scale(1.05)}
+.lang-btn:active{transform:scale(.93)}
+
+.tab-bar{display:flex;justify-content:flex-start;gap:8px;padding:12px 12px;background:#fff;margin:0 16px;border-radius:20px;box-shadow:var(--card-shadow);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab{flex:1;min-width:62px;padding:11px 4px;border:none;border-radius:14px;font-size:14px;font-weight:700;cursor:pointer;background:#F3F4F6;color:#666;transition:all .3s;white-space:nowrap}
+.tab.active.en-tab{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;box-shadow:0 4px 10px rgba(91,158,255,.35)}
+.tab.active.cn-tab{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;box-shadow:0 4px 10px rgba(232,93,93,.35)}
+.tab.active.math-tab{background:linear-gradient(135deg,#12B76A,#34D399);color:#fff;box-shadow:0 4px 10px rgba(18,183,106,.35)}
+.tab:active{transform:scale(.93)}
+
+.lang-panel{display:none}
+.lang-panel.show{display:block}
+.tab-panel{display:none;padding:0 12px 30px;animation:fadeIn .35s}
+.tab-panel.active{display:block}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes popIn{0%{transform:scale(.3);opacity:0}70%{transform:scale(1.1)}to{transform:scale(1);opacity:1}}
+@keyframes bounce{0%,to{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes wiggle{0%,to{transform:rotate(0)}25%{transform:rotate(-5deg)}75%{transform:rotate(5deg)}}
+
+/* 英语 */
+.alphabet-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding-top:8px}
+.letter-card{aspect-ratio:1;background:#fff;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--card-shadow);transition:all .2s}
+.letter-card:active{transform:scale(.9)}
+.letter-card .letter{font-size:30px;font-weight:900}
+.letter-card .letter-emoji{font-size:26px;margin-top:2px}
+.letter-card .letter-word{font-size:10px;color:#888;margin-top:2px}
+.letter-card:nth-child(8n+1) .letter{color:var(--pink)}.letter-card:nth-child(8n+2) .letter{color:var(--blue)}
+.letter-card:nth-child(8n+3) .letter{color:var(--green)}.letter-card:nth-child(8n+4) .letter{color:var(--orange)}
+.letter-card:nth-child(8n+5) .letter{color:var(--purple)}.letter-card:nth-child(8n+6) .letter{color:#F472B6}
+.letter-card:nth-child(8n+7) .letter{color:#34D399}.letter-card:nth-child(8n+8) .letter{color:#FB923C}
+
+.category-bar{display:flex;gap:8px;padding:8px 0 14px;overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap}
+.category-bar::-webkit-scrollbar{display:none}
+.cat-btn{flex-shrink:0;padding:10px 16px;border:2px solid #E5E7EB;border-radius:20px;font-size:14px;font-weight:700;cursor:pointer;background:#fff;color:#555;transition:all .25s;white-space:nowrap}
+.cat-btn.active{border-color:var(--blue);background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;box-shadow:0 3px 12px rgba(91,158,255,.35)}
+.cat-btn:active{transform:scale(.93)}
+
+.word-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.word-card{aspect-ratio:1;background:#fff;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--card-shadow);transition:all .2s;animation:popIn .4s both}
+.word-card:active{transform:scale(.88)}
+.word-card .word-emoji{font-size:40px}
+.word-card .word-text{font-size:15px;font-weight:700;color:#333;margin-top:3px}
+.word-card .word-mean{font-size:11px;color:#999}
+
+/* 语文 - 拼音 */
+.pinyin-section{margin-bottom:16px}
+.pinyin-section-title{font-size:15px;font-weight:800;color:var(--red);margin:12px 0 8px;padding-left:4px}
+.pinyin-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.pinyin-card{aspect-ratio:1.2;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--card-shadow);font-size:18px;font-weight:700;color:#333;transition:all .2s;border:2px solid transparent}
+.pinyin-card:active{transform:scale(.85);border-color:var(--red);background:#FFF1F0}
+
+/* 语文 - 识字卡片 */
+.char-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding-top:8px}
+.char-card{background:#fff;border-radius:18px;padding:12px 6px 10px;display:flex;flex-direction:column;align-items:center;cursor:pointer;box-shadow:var(--card-shadow);transition:all .2s}
+.char-card:active{transform:scale(.93)}
+.char-card .char-big{font-size:44px;font-weight:900;color:var(--red);line-height:1.1}
+.char-card .char-picto{display:flex;align-items:center;gap:4px;margin:4px 0}
+.char-card .picto-emoji{font-size:22px}
+.char-card .picto-arrow{font-size:14px;color:#ccc}
+.char-card .picto-char{font-size:22px;font-weight:700;color:#999}
+.char-card .char-pinyin{font-size:14px;color:var(--blue);font-weight:700}
+
+/* 语文 - 古诗 */
+.poem-card{background:#fff;border-radius:20px;padding:20px 18px;margin-bottom:12px;box-shadow:var(--card-shadow);cursor:pointer;transition:all .2s}
+.poem-card:active{transform:scale(.97)}
+.poem-card .poem-title{font-size:20px;font-weight:900;color:var(--red)}
+.poem-card .poem-author{font-size:13px;color:#999;margin-bottom:12px}
+.poem-card .poem-line{font-size:20px;line-height:2;color:#333;text-align:center;letter-spacing:4px}
+.poem-card .poem-play{display:block;margin:14px auto 0;padding:10px 28px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-size:15px;font-weight:700;cursor:pointer}
+.poem-card .poem-play:active{transform:scale(.9)}
+/* 古诗年级分组 */
+.grade-section{margin-bottom:8px}
+.grade-header{background:#FFF9F0;padding:14px 16px;border-radius:16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:17px;font-weight:800;color:var(--red);transition:all .2s}
+.grade-header:active{background:#FFE4D0}
+.grade-header .grade-count{font-size:12px;font-weight:500;color:#999}
+.grade-header .grade-arrow{font-size:14px;transition:transform .3s}
+.grade-section.open .grade-arrow{transform:rotate(180deg)}
+.grade-body{display:none;padding-top:6px}
+.grade-section.open .grade-body{display:block}
+
+/* 数学 - 认数字 */
+.num-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding-top:8px}
+.num-card{aspect-ratio:1;background:#fff;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--card-shadow);transition:all .2s}
+.num-card:active{transform:scale(.88)}
+.num-card .num-big{font-size:38px;font-weight:900;color:#12B76A;line-height:1}
+.num-card .num-cn{font-size:14px;color:#555;font-weight:700;margin-top:3px}
+.num-card .num-dots{font-size:9px;color:#94A3B8;margin-top:4px;letter-spacing:1px;line-height:1.4;text-align:center;max-width:90%}
+
+/* 数学 - 加减法 */
+.arith-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:8px}
+.arith-card{background:#fff;border-radius:18px;padding:18px 10px;text-align:center;cursor:pointer;box-shadow:var(--card-shadow);transition:all .2s}
+.arith-card:active{transform:scale(.92)}
+.arith-card .arith-pic{font-size:26px;letter-spacing:2px;line-height:1.3;min-height:38px}
+.arith-card .arith-expr{font-size:24px;font-weight:900;color:#0E9F6E;margin:6px 0}
+.arith-card .arith-answer{font-size:20px;font-weight:800;color:#F59E0B}
+
+/* 数学 - 图形 */
+.shape-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding-top:8px}
+.shape-card{background:#fff;border-radius:18px;padding:16px 8px;display:flex;flex-direction:column;align-items:center;cursor:pointer;box-shadow:var(--card-shadow);transition:all .2s}
+.shape-card:active{transform:scale(.9)}
+.shape-card .shape-emoji{font-size:44px;line-height:1.2}
+.shape-card .shape-name{font-size:15px;font-weight:800;color:#333;margin-top:4px}
+.shape-card .shape-desc{font-size:11px;color:#999;margin-top:1px}
+
+/* 数学 - 测验 */
+.math-quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:360px;margin:0 auto}
+.math-quiz-opt{padding:16px 10px;font-size:22px;font-weight:800;border:3px solid #E5E7EB;border-radius:18px;background:#fff;cursor:pointer;color:#333;transition:all .25s;box-shadow:var(--card-shadow)}
+.math-quiz-opt:active{transform:scale(.93)}
+.math-quiz-opt.correct{border-color:var(--green);background:#D1FAE5;color:#065F46;animation:wiggle .3s}
+.math-quiz-opt.wrong{border-color:var(--pink);background:#FFE4E6;color:#9B1C1C}
+.quiz-next.math-next{background:linear-gradient(135deg,#12B76A,#34D399);box-shadow:0 4px 16px rgba(18,183,106,.35)}
+.math-quiz-expr{font-size:52px;font-weight:900;color:#0E9F6E;margin:8px 0 18px;animation:bounce 1.5s ease infinite}
+
+/* 数学 - 小节标题 */
+.sec-title{font-size:15px;font-weight:800;color:#0E9F6E;margin:18px 4px 2px;padding-left:6px;border-left:4px solid #34D399}
+
+/* 数学 - 乘法口诀 */
+.times-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding-top:8px}
+.times-card{background:#fff;border-radius:14px;padding:12px 6px;text-align:center;cursor:pointer;box-shadow:var(--card-shadow);transition:all .2s}
+.times-card:active{transform:scale(.9)}
+.times-card .times-expr{font-size:19px;font-weight:900;color:#0E9F6E}
+.times-card .times-read{font-size:11px;color:#999;margin-top:3px}
+
+/* 数学 - 时钟 */
+.clock-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding-top:8px}
+.clock-card{background:#fff;border-radius:16px;padding:14px 6px;display:flex;flex-direction:column;align-items:center;cursor:pointer;box-shadow:var(--card-shadow);transition:all .2s}
+.clock-card:active{transform:scale(.9)}
+.clock-card .clock-face{line-height:0;margin:4px 0}
+.clock-card .clock-face svg{display:block;margin:0 auto}
+.clock-card .clock-time{font-size:17px;font-weight:900;color:#0E9F6E;margin-top:2px}
+.clock-card .clock-read{font-size:12px;color:#999;margin-top:1px}
+
+/* 测验 */
+.quiz-container,.cn-quiz-container{text-align:center;padding-top:10px}
+.quiz-score{font-size:20px;font-weight:800;color:var(--orange);margin-bottom:14px}
+.quiz-question{font-size:17px;font-weight:700;color:#555;margin-bottom:6px}
+.quiz-emoji{font-size:80px;margin:8px 0 18px;animation:bounce 1.5s ease infinite;filter:drop-shadow(0 8px 16px rgba(0,0,0,.12))}
+.cn-quiz-char{font-size:90px;font-weight:900;color:var(--red);margin:10px 0 16px;animation:bounce 1.5s ease infinite}
+.quiz-options,.cn-quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:360px;margin:0 auto}
+.quiz-opt,.cn-quiz-opt{padding:16px 10px;font-size:16px;font-weight:700;border:3px solid #E5E7EB;border-radius:18px;background:#fff;cursor:pointer;color:#333;transition:all .25s;box-shadow:var(--card-shadow)}
+.quiz-opt:active,.cn-quiz-opt:active{transform:scale(.93)}
+.quiz-opt.correct,.cn-quiz-opt.correct{border-color:var(--green);background:#D1FAE5;color:#065F46;animation:wiggle .3s}
+.quiz-opt.wrong,.cn-quiz-opt.wrong{border-color:var(--pink);background:#FFE4E6;color:#9B1C1C}
+.quiz-feedback{font-size:20px;font-weight:800;margin:14px 0;min-height:30px}
+.quiz-next{padding:14px 40px;font-size:17px;font-weight:700;border:none;border-radius:20px;color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(78,203,113,.4);transition:all .25s;margin-top:6px}
+.quiz-next.en-next{background:linear-gradient(135deg,var(--green),#34D399)}
+.quiz-next.cn-next{background:linear-gradient(135deg,var(--red),var(--orange));box-shadow:0 4px 16px rgba(232,93,93,.3)}
+.quiz-next:active{transform:scale(.9)}
+
+/* 对话 */
+.dialogue-list{display:flex;flex-direction:column;gap:10px;padding-top:6px}
+.dialogue-card{background:#fff;border-radius:20px;box-shadow:var(--card-shadow);overflow:hidden;transition:all .3s;animation:fadeIn .4s both}
+.dialogue-card.open{box-shadow:0 8px 30px rgba(0,0,0,.12)}
+.dialogue-header{display:flex;align-items:center;gap:10px;padding:16px;cursor:pointer}
+.dialogue-header:active{background:#F9FAFB}
+.dialogue-emoji{font-size:34px}
+.dialogue-title{flex:1;font-size:18px;font-weight:800;color:#333}
+.dialogue-arrow{font-size:13px;color:#aaa}
+.dialogue-card.open .dialogue-arrow{color:var(--purple)}
+.dialogue-body{padding:0 14px 14px;border-top:2px dashed #F3F4F6;animation:fadeIn .3s}
+.dialogue-line{display:flex;align-items:center;gap:8px;padding:10px 6px;border-radius:12px;margin-top:3px;cursor:pointer}
+.dialogue-line:active{background:#F0F4FF}
+.dl-speaker{font-size:26px;flex-shrink:0;width:32px;text-align:center}
+.dl-content{flex:1;min-width:0}
+.dl-en{display:block;font-size:15px;font-weight:700;color:#1F2937}
+.dl-zh{display:block;font-size:12px;color:#9CA3AF;margin-top:2px}
+.dl-speak{font-size:18px;flex-shrink:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#EEF2FF}
+.dl-speak:active{background:var(--blue);transform:scale(.85)}
+.dialogue-play-all{display:block;width:100%;margin-top:12px;padding:12px;font-size:16px;font-weight:700;border:none;border-radius:14px;background:linear-gradient(135deg,var(--purple),#C084FC);color:#fff;cursor:pointer}
+.dialogue-play-all:active{transform:scale(.94)}
+
+/* 弹窗 */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-overlay.show{opacity:1;pointer-events:auto}
+.modal-card{background:#fff;border-radius:28px;padding:12px 12px 22px 22px;text-align:center;width:90%;max-width:360px;box-shadow:0 20px 60px rgba(0,0,0,.2);animation:popIn .4s;position:relative}
+.modal-close{position:sticky;top:0;z-index:3;display:block;margin-left:auto;margin-right:-4px;width:32px;height:32px;font-size:20px;color:#aaa;cursor:pointer;border-radius:50%;background:#F3F4F6;line-height:32px;text-align:center}
+.modal-scroll{overflow-y:auto;max-height:72vh;padding-right:10px}
+.modal-emoji,.modal-char{font-size:70px;margin-bottom:4px;display:block}
+.modal-word{font-size:32px;font-weight:900;color:#333}
+.modal-pinyin{font-size:18px;color:var(--blue);margin-top:4px}
+.modal-meaning{font-size:15px;color:#999;margin-top:4px}
+.modal-picto{display:flex;align-items:center;justify-content:center;gap:10px;margin:10px 0;padding:10px;background:#FFF9F0;border-radius:14px}
+.modal-picto span{font-size:38px}
+.modal-picto .arrow{font-size:24px;color:var(--orange)}
+.modal-picto-label{font-size:11px;color:#aaa;text-align:center;margin-top:-6px;margin-bottom:8px}
+
+/* Hanzi Writer 笔画容器 */
+.hw-wrap{position:relative;margin:6px auto;width:200px;height:200px;border:2px dashed #F3F4F6;border-radius:16px;background:#FFFBF5;overflow:hidden}
+.hw-wrap .hw-inner{width:100%;height:100%}
+.hw-wrap .hw-inner svg{display:block}
+.hw-step{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:6px;flex-wrap:wrap}
+.hw-step .step-dot{width:22px;height:22px;border-radius:50%;background:#E5E7EB;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#999;transition:all .3s}
+.hw-step .step-dot.done{background:var(--green);color:#fff}
+.hw-step .step-dot.current{background:var(--red);color:#fff;transform:scale(1.3)}
+.hw-btns{display:flex;gap:8px;justify-content:center;margin-top:8px}
+.hw-btn{padding:8px 16px;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+.hw-btn.write{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff}
+.hw-btn.replay{background:#F3F4F6;color:#666}
+.hw-btn:active{transform:scale(.9)}
+
+.modal-speak{margin-top:10px;padding:12px 28px;font-size:16px;font-weight:700;border:none;border-radius:18px;color:#fff;cursor:pointer}
+.modal-speak.en{background:linear-gradient(135deg,var(--blue),var(--purple));box-shadow:0 4px 14px rgba(91,158,255,.4)}
+.modal-speak.cn{background:linear-gradient(135deg,var(--red),var(--orange));box-shadow:0 4px 14px rgba(232,93,93,.4)}
+.modal-speak:active{transform:scale(.9)}
+
+@media(min-width:600px){
+.alphabet-grid,.char-grid{grid-template-columns:repeat(6,1fr);max-width:600px;margin:0 auto}
+.word-grid{grid-template-columns:repeat(4,1fr);max-width:600px;margin:0 auto}
+.tab-bar,.lang-bar{max-width:500px;margin-left:auto;margin-right:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="header en" id="header">
+    <h1 class="logo" id="logo">🌟 宝宝学习乐园</h1>
+    <div class="sub-logo" id="subLogo">英语启蒙 · 语文启蒙</div>
+</header>
+
+<nav class="lang-bar">
+    <button class="lang-btn en active" id="langEn">🇬🇧 英语</button>
+    <button class="lang-btn cn" id="langCn">🇨🇳 语文</button>
+    <button class="lang-btn math" id="langMath">🧮 数学</button>
+</nav>
+
+<!-- ====== 英语面板 ====== -->
+<div class="lang-panel show" id="panelEn">
+    <nav class="tab-bar" id="enTabBar">
+        <button class="tab active en-tab" data-en="alphabet">🔤字母</button>
+        <button class="tab en-tab" data-en="category">📚单词</button>
+        <button class="tab en-tab" data-en="quiz">🎮测验</button>
+        <button class="tab en-tab" data-en="dialogue">💬对话</button>
+    </nav>
+    <div class="tab-panel active" id="en-alphabet"><div class="alphabet-grid" id="alphabetGrid"></div></div>
+    <div class="tab-panel" id="en-category"><div class="category-bar" id="categoryBar"></div><div class="word-grid" id="wordGrid"></div></div>
+    <div class="tab-panel" id="en-quiz"><div class="quiz-container"><div class="quiz-score">⭐<span id="quizScore">0</span></div><div class="quiz-question" id="quizQuestion">这个用英语怎么说？</div><div class="quiz-emoji" id="quizEmoji">🐶</div><div class="quiz-options" id="quizOptions"></div><div class="quiz-feedback" id="quizFeedback"></div><button class="quiz-next en-next" id="quizNext" style="display:none">下一题 ➡️</button></div></div>
+    <div class="tab-panel" id="en-dialogue"><div class="dialogue-list" id="dialogueList"></div></div>
+</div>
+
+<!-- ====== 语文面板 ====== -->
+<div class="lang-panel" id="panelCn">
+    <nav class="tab-bar" id="cnTabBar">
+        <button class="tab active cn-tab" data-cn="pinyin">🔤拼音</button>
+        <button class="tab cn-tab" data-cn="char">📝识字</button>
+        <button class="tab cn-tab" data-cn="poem">📜古诗</button>
+        <button class="tab cn-tab" data-cn="cnquiz">🎮认字</button>
+    </nav>
+    <div class="tab-panel active" id="cn-pinyin"><div id="pinyinContainer"></div></div>
+    <div class="tab-panel" id="cn-char"><div class="char-grid" id="charGrid"></div></div>
+    <div class="tab-panel" id="cn-poem"><div id="poemContainer"></div></div>
+    <div class="tab-panel" id="cn-cnquiz"><div class="cn-quiz-container"><div class="quiz-score">⭐<span id="cnQuizScore">0</span></div><div class="quiz-question">这个字怎么读？</div><div class="cn-quiz-char" id="cnQuizChar">人</div><div class="cn-quiz-options" id="cnQuizOptions"></div><div class="quiz-feedback" id="cnQuizFeedback"></div><button class="quiz-next cn-next" id="cnQuizNext" style="display:none">下一题 ➡️</button></div></div>
+</div>
+
+<!-- ====== 数学面板 ====== -->
+<div class="lang-panel" id="panelMath">
+    <nav class="tab-bar" id="mathTabBar">
+        <button class="tab active math-tab" data-math="num">🔢认数</button>
+        <button class="tab math-tab" data-math="arith">➕加减</button>
+        <button class="tab math-tab" data-math="times">✖️口诀</button>
+        <button class="tab math-tab" data-math="shape">🔷图形</button>
+        <button class="tab math-tab" data-math="clock">⏰时间</button>
+        <button class="tab math-tab" data-math="mquiz">🎮测验</button>
+    </nav>
+    <div class="tab-panel active" id="math-num"><div class="num-grid" id="numGrid"></div></div>
+    <div class="tab-panel" id="math-arith">
+        <div class="sec-title">10 以内</div><div class="arith-grid" id="arithGrid"></div>
+        <div class="sec-title">20 以内（凑十法）</div><div class="arith-grid" id="arithGrid20"></div>
+    </div>
+    <div class="tab-panel" id="math-times"><div class="times-grid" id="timesGrid"></div></div>
+    <div class="tab-panel" id="math-shape">
+        <div class="sec-title">平面图形</div><div class="shape-grid" id="shapeGrid"></div>
+        <div class="sec-title">立体图形</div><div class="shape-grid" id="shape3dGrid"></div>
+    </div>
+    <div class="tab-panel" id="math-clock">
+        <div class="sec-title">整点</div><div class="clock-grid" id="clockGrid"></div>
+        <div class="sec-title">半点</div><div class="clock-grid" id="clockHalfGrid"></div>
+    </div>
+    <div class="tab-panel" id="math-mquiz"><div class="cn-quiz-container"><div class="quiz-score">⭐<span id="mathQuizScore">0</span></div><div class="quiz-question">算一算，等于多少？</div><div class="math-quiz-expr" id="mathQuizExpr">2+3</div><div class="math-quiz-options" id="mathQuizOptions"></div><div class="quiz-feedback" id="mathQuizFeedback"></div><button class="quiz-next math-next" id="mathQuizNext" style="display:none">下一题 ➡️</button></div></div>
+</div>
+
+<!-- 弹窗 -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-card" id="modalCard">
+        <span class="modal-close" id="modalClose">✕</span>
+        <div class="modal-scroll" id="modalBody"></div>
+    </div>
+</div>
+
+<script>
+(function(){
+// ==================== 数据 ====================
+var alphabet=[
+{letter:'A',emoji:'🍎',word:'Apple',m:'苹果'},{letter:'B',emoji:'🐻',word:'Bear',m:'熊'},{letter:'C',emoji:'🐱',word:'Cat',m:'猫'},
+{letter:'D',emoji:'🐶',word:'Dog',m:'狗'},{letter:'E',emoji:'🥚',word:'Egg',m:'蛋'},{letter:'F',emoji:'🐟',word:'Fish',m:'鱼'},
+{letter:'G',emoji:'🍇',word:'Grape',m:'葡萄'},{letter:'H',emoji:'🏠',word:'House',m:'房子'},{letter:'I',emoji:'🍦',word:'Ice cream',m:'冰淇淋'},
+{letter:'J',emoji:'🧃',word:'Juice',m:'果汁'},{letter:'K',emoji:'🪁',word:'Kite',m:'风筝'},{letter:'L',emoji:'🦁',word:'Lion',m:'狮子'},
+{letter:'M',emoji:'🌙',word:'Moon',m:'月亮'},{letter:'N',emoji:'🪺',word:'Nest',m:'鸟巢'},{letter:'O',emoji:'🍊',word:'Orange',m:'橙子'},
+{letter:'P',emoji:'🐼',word:'Panda',m:'熊猫'},{letter:'Q',emoji:'👑',word:'Queen',m:'女王'},{letter:'R',emoji:'🐰',word:'Rabbit',m:'兔子'},
+{letter:'S',emoji:'⭐',word:'Star',m:'星星'},{letter:'T',emoji:'🐯',word:'Tiger',m:'老虎'},{letter:'U',emoji:'☂️',word:'Umbrella',m:'雨伞'},
+{letter:'V',emoji:'🎻',word:'Violin',m:'小提琴'},{letter:'W',emoji:'🐳',word:'Whale',m:'鲸鱼'},{letter:'X',emoji:'🦴',word:'X-ray',m:'X光'},
+{letter:'Y',emoji:'🟡',word:'Yellow',m:'黄色'},{letter:'Z',emoji:'🦓',word:'Zebra',m:'斑马'}
+];
+
+var categories={
+animals:{name:'🐾 动物',words:[
+{emoji:'🐶',word:'Dog',m:'狗'},{emoji:'🐱',word:'Cat',m:'猫'},{emoji:'🐰',word:'Rabbit',m:'兔子'},{emoji:'🐻',word:'Bear',m:'熊'},
+{emoji:'🐼',word:'Panda',m:'熊猫'},{emoji:'🐯',word:'Tiger',m:'老虎'},{emoji:'🦁',word:'Lion',m:'狮子'},{emoji:'🐘',word:'Elephant',m:'大象'},
+{emoji:'🐒',word:'Monkey',m:'猴子'},{emoji:'🐧',word:'Penguin',m:'企鹅'},{emoji:'🐸',word:'Frog',m:'青蛙'},{emoji:'🐮',word:'Cow',m:'奶牛'}
+]},fruits:{name:'🍎 水果',words:[
+{emoji:'🍎',word:'Apple',m:'苹果'},{emoji:'🍌',word:'Banana',m:'香蕉'},{emoji:'🍊',word:'Orange',m:'橙子'},{emoji:'🍇',word:'Grape',m:'葡萄'},
+{emoji:'🍓',word:'Strawberry',m:'草莓'},{emoji:'🍉',word:'Watermelon',m:'西瓜'},{emoji:'🍑',word:'Peach',m:'桃子'},{emoji:'🥝',word:'Kiwi',m:'猕猴桃'},
+{emoji:'🍒',word:'Cherry',m:'樱桃'}
+]},colors:{name:'🎨 颜色',words:[
+{emoji:'🔴',word:'Red',m:'红色'},{emoji:'🔵',word:'Blue',m:'蓝色'},{emoji:'🟢',word:'Green',m:'绿色'},{emoji:'🟡',word:'Yellow',m:'黄色'},
+{emoji:'🟣',word:'Purple',m:'紫色'},{emoji:'🟠',word:'Orange',m:'橙色'},{emoji:'⚫',word:'Black',m:'黑色'},{emoji:'⚪',word:'White',m:'白色'},
+{emoji:'🩷',word:'Pink',m:'粉色'}
+]},numbers:{name:'🔢 数字',words:[
+{emoji:'1️⃣',word:'One',m:'一'},{emoji:'2️⃣',word:'Two',m:'二'},{emoji:'3️⃣',word:'Three',m:'三'},{emoji:'4️⃣',word:'Four',m:'四'},
+{emoji:'5️⃣',word:'Five',m:'五'},{emoji:'6️⃣',word:'Six',m:'六'},{emoji:'7️⃣',word:'Seven',m:'七'},{emoji:'8️⃣',word:'Eight',m:'八'},
+{emoji:'9️⃣',word:'Nine',m:'九'},{emoji:'🔟',word:'Ten',m:'十'}
+]}};
+
+var dialogues=[
+{title:'打招呼',emoji:'👋',lines:[
+{speaker:'👦',en:'Hello!',zh:'你好！'},{speaker:'👧',en:'Hi! How are you?',zh:'嗨！你好吗？'},
+{speaker:'👦',en:"I'm fine, thank you!",zh:'我很好，谢谢！'},{speaker:'👧',en:'Good morning!',zh:'早上好！'},
+{speaker:'👦',en:'Good afternoon!',zh:'下午好！'},{speaker:'👧',en:'Goodbye! See you!',zh:'再见！回头见！'}
+]},{title:'自我介绍',emoji:'🙋',lines:[
+{speaker:'👩\u200D🏫',en:"What's your name?",zh:'你叫什么名字？'},{speaker:'👦',en:'My name is Tom.',zh:'我叫汤姆。'},
+{speaker:'👩\u200D🏫',en:'How old are you?',zh:'你几岁了？'},{speaker:'👦',en:'I am five years old.',zh:'我五岁了。'},
+{speaker:'👩\u200D🏫',en:'Are you a boy or a girl?',zh:'你是男孩还是女孩？'},{speaker:'👦',en:'I am a boy.',zh:'我是男孩。'}
+]},{title:'我的家人',emoji:'👨\u200D👩\u200D👧',lines:[
+{speaker:'👧',en:'This is my family.',zh:'这是我的家人。'},{speaker:'👧',en:'This is my father.',zh:'这是我爸爸。'},
+{speaker:'👧',en:'This is my mother.',zh:'这是我妈妈。'},{speaker:'👧',en:'I have a little sister.',zh:'我有一个妹妹。'},
+{speaker:'👧',en:'I love my family!',zh:'我爱我的家人！'}
+]},{title:'我的身体',emoji:'🧍',lines:[
+{speaker:'👩\u200D🏫',en:'Touch your head.',zh:'摸摸你的头。'},{speaker:'👩\u200D🏫',en:'Point to your eyes.',zh:'指指你的眼睛。'},
+{speaker:'👩\u200D🏫',en:'Show me your nose.',zh:'让我看看你的鼻子。'},{speaker:'👩\u200D🏫',en:'Clap your hands!',zh:'拍拍手！'},
+{speaker:'👩\u200D🏫',en:'Stomp your feet!',zh:'跺跺脚！'}
+]},{title:'我喜欢…',emoji:'❤️',lines:[
+{speaker:'👦',en:'I like apples.',zh:'我喜欢苹果。'},{speaker:'👧',en:'I like dogs.',zh:'我喜欢狗。'},
+{speaker:'👦',en:'I like to draw.',zh:'我喜欢画画。'},{speaker:'👧',en:'I like to sing.',zh:'我喜欢唱歌。'},
+{speaker:'👦',en:'What do you like?',zh:'你喜欢什么？'},{speaker:'👧',en:'I like ice cream!',zh:'我喜欢冰淇淋！'}
+]},{title:'天气',emoji:'🌈',lines:[
+{speaker:'👩',en:"How's the weather today?",zh:'今天天气怎么样？'},{speaker:'👦',en:'It is sunny.',zh:'今天是晴天。'},
+{speaker:'👩',en:'Is it hot or cold?',zh:'热还是冷？'},{speaker:'👦',en:'It is hot today.',zh:'今天很热。'},
+{speaker:'👩',en:'Do you like rainy days?',zh:'你喜欢下雨天吗？'},{speaker:'👦',en:'Yes! I can jump in puddles!',zh:'喜欢！我可以跳泥坑！'}
+]},{title:'礼貌用语',emoji:'🙏',lines:[
+{speaker:'👦',en:'Please give me the book.',zh:'请把书给我。'},{speaker:'👧',en:'Thank you very much!',zh:'非常感谢！'},
+{speaker:'👦',en:"You're welcome.",zh:'不客气。'},{speaker:'👧',en:'I am sorry.',zh:'对不起。'},
+{speaker:'👦',en:"That's okay.",zh:'没关系。'},{speaker:'👧',en:'Excuse me.',zh:'打扰一下/借过。'}
+]},{title:'在幼儿园',emoji:'🏫',lines:[
+{speaker:'👩\u200D🏫',en:'Good morning, everyone!',zh:'大家早上好！'},{speaker:'👦',en:'May I go to the bathroom?',zh:'我可以去上厕所吗？'},
+{speaker:'👩\u200D🏫',en:"Let's sing a song.",zh:'我们来唱首歌吧。'},{speaker:'👧',en:'Can I have some water, please?',zh:'请给我一点水好吗？'},
+{speaker:'👩\u200D🏫',en:'Time to go home!',zh:'该回家了！'},{speaker:'👦',en:'See you tomorrow!',zh:'明天见！'}
+]}];
+
+var pinyinData=[
+{title:'声母 b p m f',items:['b','p','m','f']},{title:'声母 d t n l',items:['d','t','n','l']},
+{title:'声母 g k h',items:['g','k','h']},{title:'声母 j q x',items:['j','q','x']},
+{title:'声母 zh ch sh r',items:['zh','ch','sh','r']},{title:'声母 z c s',items:['z','c','s']},
+{title:'声母 y w',items:['y','w']},{title:'单韵母 a o e i u \u00fc',items:['a','o','e','i','u','\u00fc']},
+{title:'复韵母 ai ei ui ao ou iu',items:['ai','ei','ui','ao','ou','iu']},{title:'复韵母 ie \u00fce er',items:['ie','\u00fce','er']},
+{title:'鼻韵母 an en in un \u00fcn',items:['an','en','in','un','\u00fcn']},{title:'后鼻韵母 ang eng ing ong',items:['ang','eng','ing','ong']}
+];
+
+// 汉字数据：Hanzi Writer 通过 CDN 加载笔画数据
+var characters=[
+{ch:'一',py:'yī',m:'one',picto:'1️⃣',n:1},{ch:'二',py:'èr',m:'two',picto:'2️⃣',n:2},{ch:'三',py:'sān',m:'three',picto:'3️⃣',n:3},
+{ch:'十',py:'shí',m:'ten',picto:'🔟',n:2},{ch:'人',py:'rén',m:'person',picto:'🚶',n:2},
+{ch:'大',py:'dà',m:'big',picto:'🧍',n:3},{ch:'天',py:'tiān',m:'sky',picto:'🌤️',n:4},
+{ch:'口',py:'kǒu',m:'mouth',picto:'👄',n:3},{ch:'日',py:'rì',m:'sun',picto:'☀️',n:4},
+{ch:'月',py:'yuè',m:'moon',picto:'🌙',n:4},{ch:'山',py:'shān',m:'mountain',picto:'⛰️',n:3},
+{ch:'水',py:'shuǐ',m:'water',picto:'💧',n:4},{ch:'火',py:'huǒ',m:'fire',picto:'🔥',n:4},
+{ch:'木',py:'mù',m:'tree',picto:'🌳',n:4},{ch:'田',py:'tián',m:'field',picto:'🌾',n:5},
+{ch:'目',py:'mù',m:'eye',picto:'👁️',n:5},{ch:'上',py:'shàng',m:'up',picto:'⬆️',n:3},
+{ch:'下',py:'xià',m:'down',picto:'⬇️',n:3},
+{ch:'花',py:'huā',m:'flower',picto:'🌸',n:7},{ch:'鸟',py:'niǎo',m:'bird',picto:'🐦',n:5},
+{ch:'鱼',py:'yú',m:'fish',picto:'🐟',n:8},{ch:'虫',py:'chóng',m:'insect',picto:'🐛',n:6},
+{ch:'云',py:'yún',m:'cloud',picto:'☁️',n:4},{ch:'雨',py:'yǔ',m:'rain',picto:'🌧️',n:8}
+];
+
+var poemsByGrade=[
+{grade:'一年级上册',poems:[
+{title:'咏鹅',author:'唐 · 骆宾王',lines:['鹅，鹅，鹅，','曲项向天歌。','白毛浮绿水，','红掌拨清波。']},
+{title:'江南',author:'汉乐府',lines:['江南可采莲，','莲叶何田田。','鱼戏莲叶间。','鱼戏莲叶东，','鱼戏莲叶西，','鱼戏莲叶南，','鱼戏莲叶北。']},
+{title:'画',author:'唐 · 王维',lines:['远看山有色，','近听水无声。','春去花还在，','人来鸟不惊。']},
+{title:'悯农（其二）',author:'唐 · 李绅',lines:['锄禾日当午，','汗滴禾下土。','谁知盘中餐，','粒粒皆辛苦。']},
+{title:'古朗月行（节选）',author:'唐 · 李白',lines:['小时不识月，','呼作白玉盘。','又疑瑶台镜，','飞在青云端。']},
+{title:'风',author:'唐 · 李峤',lines:['解落三秋叶，','能开二月花。','过江千尺浪，','入竹万竿斜。']}
+]},
+{grade:'一年级下册',poems:[
+{title:'春晓',author:'唐 · 孟浩然',lines:['春眠不觉晓，','处处闻啼鸟。','夜来风雨声，','花落知多少。']},
+{title:'赠汪伦',author:'唐 · 李白',lines:['李白乘舟将欲行，','忽闻岸上踏歌声。','桃花潭水深千尺，','不及汪伦送我情。']},
+{title:'静夜思',author:'唐 · 李白',lines:['床前明月光，','疑是地上霜。','举头望明月，','低头思故乡。']},
+{title:'寻隐者不遇',author:'唐 · 贾岛',lines:['松下问童子，','言师采药去。','只在此山中，','云深不知处。']},
+{title:'池上',author:'唐 · 白居易',lines:['小娃撑小艇，','偷采白莲回。','不解藏踪迹，','浮萍一道开。']},
+{title:'小池',author:'宋 · 杨万里',lines:['泉眼无声惜细流，','树阴照水爱晴柔。','小荷才露尖尖角，','早有蜻蜓立上头。']},
+{title:'画鸡',author:'明 · 唐寅',lines:['头上红冠不用裁，','满身雪白走将来。','平生不敢轻言语，','一叫千门万户开。']}
+]},
+{grade:'二年级上册',poems:[
+{title:'梅花',author:'宋 · 王安石',lines:['墙角数枝梅，','凌寒独自开。','遥知不是雪，','为有暗香来。']},
+{title:'小儿垂钓',author:'唐 · 胡令能',lines:['蓬头稚子学垂纶，','侧坐莓苔草映身。','路人借问遥招手，','怕得鱼惊不应人。']},
+{title:'登鹳雀楼',author:'唐 · 王之涣',lines:['白日依山尽，','黄河入海流。','欲穷千里目，','更上一层楼。']},
+{title:'望庐山瀑布',author:'唐 · 李白',lines:['日照香炉生紫烟，','遥看瀑布挂前川。','飞流直下三千尺，','疑是银河落九天。']},
+{title:'江雪',author:'唐 · 柳宗元',lines:['千山鸟飞绝，','万径人踪灭。','孤舟蓑笠翁，','独钓寒江雪。']},
+{title:'夜宿山寺',author:'唐 · 李白',lines:['危楼高百尺，','手可摘星辰。','不敢高声语，','恐惊天上人。']},
+{title:'敕勒歌',author:'北朝民歌',lines:['敕勒川，阴山下，','天似穹庐，笼盖四野。','天苍苍，野茫茫，','风吹草低见牛羊。']}
+]},
+{grade:'二年级下册',poems:[
+{title:'村居',author:'清 · 高鼎',lines:['草长莺飞二月天，','拂堤杨柳醉春烟。','儿童散学归来早，','忙趁东风放纸鸢。']},
+{title:'咏柳',author:'唐 · 贺知章',lines:['碧玉妆成一树高，','万条垂下绿丝绦。','不知细叶谁裁出，','二月春风似剪刀。']},
+{title:'赋得古原草送别',author:'唐 · 白居易',lines:['离离原上草，','一岁一枯荣。','野火烧不尽，','春风吹又生。']},
+{title:'晓出净慈寺送林子方',author:'宋 · 杨万里',lines:['毕竟西湖六月中，','风光不与四时同。','接天莲叶无穷碧，','映日荷花别样红。']},
+{title:'绝句',author:'唐 · 杜甫',lines:['两个黄鹂鸣翠柳，','一行白鹭上青天。','窗含西岭千秋雪，','门泊东吴万里船。']},
+{title:'悯农（其一）',author:'唐 · 李绅',lines:['春种一粒粟，','秋收万颗子。','四海无闲田，','农夫犹饿死。']},
+{title:'舟夜书所见',author:'清 · 查慎行',lines:['月黑见渔灯，','孤光一点萤。','微微风簇浪，','散作满河星。']}
+]},
+{grade:'三年级上册',poems:[
+{title:'所见',author:'清 · 袁枚',lines:['牧童骑黄牛，','歌声振林樾。','意欲捕鸣蝉，','忽然闭口立。']},
+{title:'山行',author:'唐 · 杜牧',lines:['远上寒山石径斜，','白云生处有人家。','停车坐爱枫林晚，','霜叶红于二月花。']},
+{title:'赠刘景文',author:'宋 · 苏轼',lines:['荷尽已无擎雨盖，','菊残犹有傲霜枝。','一年好景君须记，','正是橙黄橘绿时。']},
+{title:'夜书所见',author:'宋 · 叶绍翁',lines:['萧萧梧叶送寒声，','江上秋风动客情。','知有儿童挑促织，','夜深篱落一灯明。']},
+{title:'望天门山',author:'唐 · 李白',lines:['天门中断楚江开，','碧水东流至此回。','两岸青山相对出，','孤帆一片日边来。']},
+{title:'饮湖上初晴后雨',author:'宋 · 苏轼',lines:['水光潋滟晴方好，','山色空蒙雨亦奇。','欲把西湖比西子，','淡妆浓抹总相宜。']},
+{title:'望洞庭',author:'唐 · 刘禹锡',lines:['湖光秋月两相和，','潭面无风镜未磨。','遥望洞庭山水翠，','白银盘里一青螺。']},
+{title:'早发白帝城',author:'唐 · 李白',lines:['朝辞白帝彩云间，','千里江陵一日还。','两岸猿声啼不住，','轻舟已过万重山。']},
+{title:'采莲曲',author:'唐 · 王昌龄',lines:['荷叶罗裙一色裁，','芙蓉向脸两边开。','乱入池中看不见，','闻歌始觉有人来。']}
+]},
+{grade:'三年级下册',poems:[
+{title:'绝句',author:'唐 · 杜甫',lines:['迟日江山丽，','春风花草香。','泥融飞燕子，','沙暖睡鸳鸯。']},
+{title:'惠崇春江晚景',author:'宋 · 苏轼',lines:['竹外桃花三两枝，','春江水暖鸭先知。','蒌蒿满地芦芽短，','正是河豚欲上时。']},
+{title:'三衢道中',author:'宋 · 曾几',lines:['梅子黄时日日晴，','小溪泛尽却山行。','绿阴不减来时路，','添得黄鹂四五声。']},
+{title:'忆江南',author:'唐 · 白居易',lines:['江南好，风景旧曾谙。','日出江花红胜火，','春来江水绿如蓝。','能不忆江南？']},
+{title:'元日',author:'宋 · 王安石',lines:['爆竹声中一岁除，','春风送暖入屠苏。','千门万户曈曈日，','总把新桃换旧符。']},
+{title:'清明',author:'唐 · 杜牧',lines:['清明时节雨纷纷，','路上行人欲断魂。','借问酒家何处有？','牧童遥指杏花村。']},
+{title:'九月九日忆山东兄弟',author:'唐 · 王维',lines:['独在异乡为异客，','每逢佳节倍思亲。','遥知兄弟登高处，','遍插茱萸少一人。']},
+{title:'滁州西涧',author:'唐 · 韦应物',lines:['独怜幽草涧边生，','上有黄鹂深树鸣。','春潮带雨晚来急，','野渡无人舟自横。']},
+{title:'大林寺桃花',author:'唐 · 白居易',lines:['人间四月芳菲尽，','山寺桃花始盛开。','长恨春归无觅处，','不知转入此中来。']}
+]},
+{grade:'四年级上册',poems:[
+{title:'鹿柴',author:'唐 · 王维',lines:['空山不见人，','但闻人语响。','返景入深林，','复照青苔上。']},
+{title:'暮江吟',author:'唐 · 白居易',lines:['一道残阳铺水中，','半江瑟瑟半江红。','可怜九月初三夜，','露似真珠月似弓。']},
+{title:'题西林壁',author:'宋 · 苏轼',lines:['横看成岭侧成峰，','远近高低各不同。','不识庐山真面目，','只缘身在此山中。']},
+{title:'雪梅',author:'宋 · 卢钺',lines:['梅雪争春未肯降，','骚人阁笔费评章。','梅须逊雪三分白，','雪却输梅一段香。']},
+{title:'嫦娥',author:'唐 · 李商隐',lines:['云母屏风烛影深，','长河渐落晓星沉。','嫦娥应悔偷灵药，','碧海青天夜夜心。']},
+{title:'出塞',author:'唐 · 王昌龄',lines:['秦时明月汉时关，','万里长征人未还。','但使龙城飞将在，','不教胡马度阴山。']},
+{title:'凉州词',author:'唐 · 王翰',lines:['葡萄美酒夜光杯，','欲饮琵琶马上催。','醉卧沙场君莫笑，','古来征战几人回？']},
+{title:'夏日绝句',author:'宋 · 李清照',lines:['生当作人杰，','死亦为鬼雄。','至今思项羽，','不肯过江东。']},
+{title:'别董大',author:'唐 · 高适',lines:['千里黄云白日曛，','北风吹雁雪纷纷。','莫愁前路无知己，','天下谁人不识君？']}
+]},
+{grade:'四年级下册',poems:[
+{title:'四时田园杂兴（其二十五）',author:'宋 · 范成大',lines:['梅子金黄杏子肥，','麦花雪白菜花稀。','日长篱落无人过，','惟有蜻蜓蛱蝶飞。']},
+{title:'宿新市徐公店',author:'宋 · 杨万里',lines:['篱落疏疏一径深，','树头新绿未成阴。','儿童急走追黄蝶，','飞入菜花无处寻。']},
+{title:'清平乐·村居',author:'宋 · 辛弃疾',lines:['茅檐低小，溪上青青草。','醉里吴音相媚好，','白发谁家翁媪？','大儿锄豆溪东，','中儿正织鸡笼。','最喜小儿亡赖，','溪头卧剥莲蓬。']},
+{title:'江畔独步寻花',author:'唐 · 杜甫',lines:['黄师塔前江水东，','春光懒困倚微风。','桃花一簇开无主，','可爱深红爱浅红？']},
+{title:'蜂',author:'唐 · 罗隐',lines:['不论平地与山尖，','无限风光尽被占。','采得百花成蜜后，','为谁辛苦为谁甜？']},
+{title:'独坐敬亭山',author:'唐 · 李白',lines:['众鸟高飞尽，','孤云独去闲。','相看两不厌，','只有敬亭山。']},
+{title:'芙蓉楼送辛渐',author:'唐 · 王昌龄',lines:['寒雨连江夜入吴，','平明送客楚山孤。','洛阳亲友如相问，','一片冰心在玉壶。']},
+{title:'塞下曲',author:'唐 · 卢纶',lines:['月黑雁飞高，','单于夜遁逃。','欲将轻骑逐，','大雪满弓刀。']},
+{title:'墨梅',author:'元 · 王冕',lines:['吾家洗砚池头树，','朵朵花开淡墨痕。','不要人夸好颜色，','只留清气满乾坤。']}
+]},
+{grade:'五年级上册',poems:[
+{title:'蝉',author:'唐 · 虞世南',lines:['垂緌饮清露，','流响出疏桐。','居高声自远，','非是藉秋风。']},
+{title:'乞巧',author:'唐 · 林杰',lines:['七夕今宵看碧霄，','牵牛织女渡河桥。','家家乞巧望秋月，','穿尽红丝几万条。']},
+{title:'示儿',author:'宋 · 陆游',lines:['死去元知万事空，','但悲不见九州同。','王师北定中原日，','家祭无忘告乃翁。']},
+{title:'题临安邸',author:'宋 · 林升',lines:['山外青山楼外楼，','西湖歌舞几时休？','暖风熏得游人醉，','直把杭州作汴州。']},
+{title:'己亥杂诗',author:'清 · 龚自珍',lines:['九州生气恃风雷，','万马齐喑究可哀。','我劝天公重抖擞，','不拘一格降人材。']},
+{title:'山居秋暝',author:'唐 · 王维',lines:['空山新雨后，','天气晚来秋。','明月松间照，','清泉石上流。','竹喧归浣女，','莲动下渔舟。','随意春芳歇，','王孙自可留。']},
+{title:'枫桥夜泊',author:'唐 · 张继',lines:['月落乌啼霜满天，','江枫渔火对愁眠。','姑苏城外寒山寺，','夜半钟声到客船。']},
+{title:'长相思',author:'清 · 纳兰性德',lines:['山一程，水一程，','身向榆关那畔行，','夜深千帐灯。','风一更，雪一更，','聒碎乡心梦不成，','故园无此声。']},
+{title:'渔歌子',author:'唐 · 张志和',lines:['西塞山前白鹭飞，','桃花流水鳜鱼肥。','青箬笠，绿蓑衣，','斜风细雨不须归。']},
+{title:'观书有感（其一）',author:'宋 · 朱熹',lines:['半亩方塘一鉴开，','天光云影共徘徊。','问渠那得清如许？','为有源头活水来。']},
+{title:'观书有感（其二）',author:'宋 · 朱熹',lines:['昨夜江边春水生，','蒙冲巨舰一毛轻。','向来枉费推移力，','此日中流自在行。']}
+]},
+{grade:'五年级下册',poems:[
+{title:'四时田园杂兴（其三十一）',author:'宋 · 范成大',lines:['昼出耘田夜绩麻，','村庄儿女各当家。','童孙未解供耕织，','也傍桑阴学种瓜。']},
+{title:'稚子弄冰',author:'宋 · 杨万里',lines:['稚子金盆脱晓冰，','彩丝穿取当银钲。','敲成玉磬穿林响，','忽作玻璃碎地声。']},
+{title:'村晚',author:'宋 · 雷震',lines:['草满池塘水满陂，','山衔落日浸寒漪。','牧童归去横牛背，','短笛无腔信口吹。']},
+{title:'游子吟',author:'唐 · 孟郊',lines:['慈母手中线，','游子身上衣。','临行密密缝，','意恐迟迟归。','谁言寸草心，','报得三春晖。']},
+{title:'鸟鸣涧',author:'唐 · 王维',lines:['人闲桂花落，','夜静春山空。','月出惊山鸟，','时鸣春涧中。']},
+{title:'从军行',author:'唐 · 王昌龄',lines:['青海长云暗雪山，','孤城遥望玉门关。','黄沙百战穿金甲，','不破楼兰终不还。']},
+{title:'秋夜将晓出篱门迎凉有感',author:'宋 · 陆游',lines:['三万里河东入海，','五千仞岳上摩天。','遗民泪尽胡尘里，','南望王师又一年。']},
+{title:'闻官军收河南河北',author:'唐 · 杜甫',lines:['剑外忽传收蓟北，','初闻涕泪满衣裳。','却看妻子愁何在，','漫卷诗书喜欲狂。','白日放歌须纵酒，','青春作伴好还乡。','即从巴峡穿巫峡，','便下襄阳向洛阳。']},
+{title:'凉州词',author:'唐 · 王之涣',lines:['黄河远上白云间，','一片孤城万仞山。','羌笛何须怨杨柳，','春风不度玉门关。']},
+{title:'黄鹤楼送孟浩然之广陵',author:'唐 · 李白',lines:['故人西辞黄鹤楼，','烟花三月下扬州。','孤帆远影碧空尽，','唯见长江天际流。']},
+{title:'乡村四月',author:'宋 · 翁卷',lines:['绿遍山原白满川，','子规声里雨如烟。','乡村四月闲人少，','才了蚕桑又插田。']}
+]},
+{grade:'六年级上册',poems:[
+{title:'宿建德江',author:'唐 · 孟浩然',lines:['移舟泊烟渚，','日暮客愁新。','野旷天低树，','江清月近人。']},
+{title:'六月二十七日望湖楼醉书',author:'宋 · 苏轼',lines:['黑云翻墨未遮山，','白雨跳珠乱入船。','卷地风来忽吹散，','望湖楼下水如天。']},
+{title:'西江月·夜行黄沙道中',author:'宋 · 辛弃疾',lines:['明月别枝惊鹊，','清风半夜鸣蝉。','稻花香里说丰年，','听取蛙声一片。','七八个星天外，','两三点雨山前。','旧时茅店社林边，','路转溪桥忽见。']},
+{title:'过故人庄',author:'唐 · 孟浩然',lines:['故人具鸡黍，','邀我至田家。','绿树村边合，','青山郭外斜。','开轩面场圃，','把酒话桑麻。','待到重阳日，','还来就菊花。']},
+{title:'春日',author:'宋 · 朱熹',lines:['胜日寻芳泗水滨，','无边光景一时新。','等闲识得东风面，','万紫千红总是春。']},
+{title:'回乡偶书',author:'唐 · 贺知章',lines:['少小离家老大回，','乡音无改鬓毛衰。','儿童相见不相识，','笑问客从何处来。']},
+{title:'浪淘沙（其一）',author:'唐 · 刘禹锡',lines:['九曲黄河万里沙，','浪淘风簸自天涯。','如今直上银河去，','同到牵牛织女家。']},
+{title:'江南春',author:'唐 · 杜牧',lines:['千里莺啼绿映红，','水村山郭酒旗风。','南朝四百八十寺，','多少楼台烟雨中。']},
+{title:'书湖阴先生壁',author:'宋 · 王安石',lines:['茅檐长扫净无苔，','花木成畦手自栽。','一水护田将绿绕，','两山排闼送青来。']}
+]},
+{grade:'六年级下册',poems:[
+{title:'寒食',author:'唐 · 韩翃',lines:['春城无处不飞花，','寒食东风御柳斜。','日暮汉宫传蜡烛，','轻烟散入五侯家。']},
+{title:'迢迢牵牛星',author:'古诗十九首',lines:['迢迢牵牛星，','皎皎河汉女。','纤纤擢素手，','札札弄机杼。','终日不成章，','泣涕零如雨。','河汉清且浅，','相去复几许。','盈盈一水间，','脉脉不得语。']},
+{title:'十五夜望月',author:'唐 · 王建',lines:['中庭地白树栖鸦，','冷露无声湿桂花。','今夜月明人尽望，','不知秋思落谁家。']},
+{title:'长歌行',author:'汉乐府',lines:['青青园中葵，','朝露待日晞。','阳春布德泽，','万物生光辉。','常恐秋节至，','焜黄华叶衰。','百川东到海，','何时复西归？','少壮不努力，','老大徒伤悲！']},
+{title:'马诗',author:'唐 · 李贺',lines:['大漠沙如雪，','燕山月似钩。','何当金络脑，','快走踏清秋。']},
+{title:'石灰吟',author:'明 · 于谦',lines:['千锤万凿出深山，','烈火焚烧若等闲。','粉骨碎身浑不怕，','要留清白在人间。']},
+{title:'竹石',author:'清 · 郑燮',lines:['咬定青山不放松，','立根原在破岩中。','千磨万击还坚劲，','任尔东西南北风。']},
+{title:'采薇（节选）',author:'《诗经》',lines:['昔我往矣，','杨柳依依。','今我来思，','雨雪霏霏。','行道迟迟，','载渴载饥。','我心伤悲，','莫知我哀！']},
+{title:'送元二使安西',author:'唐 · 王维',lines:['渭城朝雨浥轻尘，','客舍青青柳色新。','劝君更尽一杯酒，','西出阳关无故人。']},
+{title:'春夜喜雨',author:'唐 · 杜甫',lines:['好雨知时节，','当春乃发生。','随风潜入夜，','润物细无声。','野径云俱黑，','江船火独明。','晓看红湿处，','花重锦官城。']},
+{title:'早春呈水部张十八员外',author:'唐 · 韩愈',lines:['天街小雨润如酥，','草色遥看近却无。','最是一年春好处，','绝胜烟柳满皇都。']},
+{title:'江上渔者',author:'宋 · 范仲淹',lines:['江上往来人，','但爱鲈鱼美。','君看一叶舟，','出没风波里。']},
+{title:'泊船瓜洲',author:'宋 · 王安石',lines:['京口瓜洲一水间，','钟山只隔数重山。','春风又绿江南岸，','明月何时照我还。']},
+{title:'游园不值',author:'宋 · 叶绍翁',lines:['应怜屐齿印苍苔，','小扣柴扉久不开。','春色满园关不住，','一枝红杏出墙来。']},
+{title:'卜算子·送鲍浩然之浙东',author:'宋 · 王观',lines:['水是眼波横，','山是眉峰聚。','欲问行人去那边？','眉眼盈盈处。','才始送春归，','又送君归去。','若到江南赶上春，','千万和春住。']},
+{title:'浣溪沙',author:'宋 · 苏轼',lines:['游蕲水清泉寺，','寺临兰溪，溪水西流。','山下兰芽短浸溪，','松间沙路净无泥，','萧萧暮雨子规啼。','谁道人生无再少？','门前流水尚能西！','休将白发唱黄鸡。']},
+{title:'清平乐·春归何处',author:'宋 · 黄庭坚',lines:['春归何处？','寂寞无行路。','若有人知春去处，','唤取归来同住。','春无踪迹谁知？','除非问取黄鹂。','百啭无人能解，','因风飞过蔷薇。']}
+]}
+];
+
+// 数学 - 数字 0~20
+var numCn=['零','一','二','三','四','五','六','七','八','九','十','十一','十二','十三','十四','十五','十六','十七','十八','十九','二十'];
+var numbers=[];
+for(var i=0;i<=20;i++){
+    var dots='';
+    if(i>=1&&i<=9){dots=Array(i+1).join('●')}
+    else if(i>=11&&i<=19){dots='10 + '+(i-10)}
+    else if(i===10||i===20){dots=''}
+    else if(i===0){dots='没有东西'}
+    numbers.push({num:i,cn:numCn[i],dots:dots});
+}
+
+// 数学 - 加减法（10以内）
+var arith=[
+{a:2,op:'+',b:3,emoji:'🍎'},{a:1,op:'+',b:4,emoji:'🍌'},{a:3,op:'+',b:3,emoji:'🍊'},{a:2,op:'+',b:2,emoji:'🍇'},
+{a:5,op:'-',b:2,emoji:'🍓'},{a:4,op:'+',b:5,emoji:'🍉'},{a:6,op:'-',b:3,emoji:'🥕'},{a:7,op:'-',b:4,emoji:'🍪'},
+{a:8,op:'-',b:5,emoji:'🍭'},{a:2,op:'+',b:6,emoji:'🍐'},{a:9,op:'-',b:2,emoji:'🥚'},{a:5,op:'+',b:5,emoji:'🍬'}
+];
+
+// 数学 - 图形
+var shapes=[
+{emoji:'⚪',name:'圆形',desc:'圆圆的没有角'},{emoji:'🟦',name:'正方形',desc:'四条边一样长'},
+{emoji:'🔺',name:'三角形',desc:'三条边三个角'},{emoji:'🟫',name:'长方形',desc:'两条长边两条短边'},
+{emoji:'🥚',name:'椭圆形',desc:'扁扁的圆'},{emoji:'🔶',name:'菱形',desc:'像风筝一样'},
+{emoji:'⭐',name:'五角星',desc:'五个尖角'},{emoji:'❤️',name:'心形',desc:'爱心的形状'},
+{emoji:'🌙',name:'月牙形',desc:'弯弯的月亮'}
+];
+
+// 数字转中文（0~99）
+function numToCn(n){
+    if(n===10) return '一十';
+    if(n<=20) return numCn[n];
+    var tens=Math.floor(n/10),ones=n%10;
+    if(ones===0) return numCn[tens]+'十';
+    return numCn[tens]+'十'+numCn[ones];
+}
+
+// 数学 - 20以内加减法（凑十法/破十法）
+var arith20=[
+{a:8,op:'+',b:5},{a:7,op:'+',b:6},{a:9,op:'+',b:4},{a:6,op:'+',b:7},
+{a:8,op:'+',b:7},{a:9,op:'+',b:8},{a:9,op:'+',b:6},{a:7,op:'+',b:8},
+{a:11,op:'-',b:3},{a:12,op:'-',b:5},{a:13,op:'-',b:6},{a:15,op:'-',b:7},
+{a:14,op:'-',b:8},{a:16,op:'-',b:9},{a:17,op:'-',b:9},{a:18,op:'-',b:9}
+];
+
+// 数学 - 乘法口诀（小九九 45 句）
+var dictCn=['','一','二','三','四','五','六','七','八','九'];
+var timesTable=[];
+for(var i=1;i<=9;i++){
+    for(var j=i;j<=9;j++){
+        var p=i*j;
+        timesTable.push({a:i,b:j,ans:p,read:dictCn[i]+dictCn[j]+(p<10?'得':'')+numToCn(p)});
+    }
+}
+
+// 数学 - 立体图形
+var shapes3d=[
+{emoji:'📦',name:'长方体',desc:'像箱子冰箱'},{emoji:'🎲',name:'正方体',desc:'像骰子'},
+{emoji:'🥫',name:'圆柱体',desc:'像罐头水杯'},{emoji:'⚽',name:'球体',desc:'像皮球'},
+{emoji:'🍦',name:'圆锥体',desc:'像蛋筒'}
+];
+
+// 数学 - 时间（整点/半点）
+var clockCn=['一','二','三','四','五','六','七','八','九','十','十一','十二'];
+var clockWhole=[],clockHalfArr=[];
+for(var k=0;k<12;k++){
+    var hh=k+1;
+    clockWhole.push({hour:hh,minute:0,time:(hh<10?'0':'')+hh+':00',read:clockCn[k]+'点整'});
+    clockHalfArr.push({hour:hh,minute:30,time:(hh<10?'0':'')+hh+':30',read:clockCn[k]+'点半'});
+}
+
+// ==================== 语音 ====================
+function speak(text,lang){
+    if(!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(text);
+    u.lang=lang||'en-US';u.rate=lang==='zh-CN'?0.7:0.8;u.pitch=1.1;
+    var voices=speechSynthesis.getVoices();
+    var v=voices.find(function(x){return x.lang.startsWith(lang||'en')})||null;
+    if(v) u.voice=v;
+    speechSynthesis.speak(u);
+}
+window.speak=speak;
+
+// ==================== Hanzi Writer 笔画动画 ====================
+var currentWriter=null;
+
+function initHanziWriter(char, strokeCount){
+    // 先销毁旧实例
+    if(currentWriter){try{currentWriter.target.innerHTML=''}catch(e){};currentWriter=null}
+    var wrap=document.getElementById('hwWrap');
+    if(!wrap) return;
+    wrap.querySelector('.hw-inner').innerHTML='';
+    var hwOpts={width:200,height:200,padding:5,showOutline:true,strokeAnimationSpeed:1,delayBetweenStrokes:600,strokeColor:'#E85D5D',radicalColor:'#E85D5D',outlineColor:'#DDD',highlightColor:'#AAF',drawingColor:'#333'};
+    currentWriter=HanziWriter.create(wrap.querySelector('.hw-inner'),char,hwOpts);
+    // 设置步骤点
+    var stepDiv=wrap.querySelector('.hw-step');
+    stepDiv.innerHTML='';
+    for(var i=0;i<strokeCount;i++){var d=document.createElement('span');d.className='step-dot done';d.textContent=i+1;stepDiv.appendChild(d)}
+}
+
+function startStrokeAnim(){
+    if(!currentWriter) return;
+    // 重置步骤点
+    var dots=document.querySelectorAll('#hwWrap .step-dot');
+    dots.forEach(function(d){d.className='step-dot'});
+    // 先隐藏，再动画
+    currentWriter.hideCharacter({duration:200}).then(function(){
+        // 启动步骤指示器
+        var step=0,total=dots.length;
+        var interval=setInterval(function(){
+            dots.forEach(function(d){d.className='step-dot'});
+            for(var j=0;j<step;j++){if(dots[j]) dots[j].className='step-dot done'}
+            if(dots[step]) dots[step].className='step-dot current';
+            step++;
+            if(step>=total){clearInterval(interval);
+                setTimeout(function(){dots.forEach(function(d){d.className='step-dot done'})},600)}
+        },600);
+        currentWriter.animateCharacter({onComplete:function(){clearInterval(interval);dots.forEach(function(d){d.className='step-dot done'})}});
+    });
+}
+
+// ==================== 弹窗 ====================
+var currentModalData=null;
+
+function showModal(data){
+    currentModalData=data;
+    var isChar=!!data.ch;
+    var body=Q('modalBody');
+    var html='';
+
+    if(isChar){
+        html+='<div class="modal-char">'+data.ch+'</div>';
+        if(data.picto){
+            html+='<div class="modal-picto"><span>'+data.picto+'</span><span class="arrow">➡️</span><span style="font-weight:900;color:var(--red)">'+data.ch+'</span></div>';
+            html+='<div class="modal-picto-label">象形演变</div>';
+        }
+        html+='<div class="modal-pinyin">'+data.py+'</div>';
+        html+='<div class="modal-meaning">'+data.m+'</div>';
+
+        // Hanzi Writer 笔画区
+        html+='<div class="hw-wrap" id="hwWrap"><div class="hw-inner"></div></div>';
+        html+='<div class="hw-step"></div>';
+        html+='<div class="hw-btns"><button class="hw-btn write">✏️ 写一遍</button><button class="hw-btn replay">🔄 重写</button></div>';
+        html+='<button class="modal-speak cn">🔊 听发音</button>';
+    }else{
+        html+='<div class="modal-emoji">'+(data.emoji||'')+'</div>';
+        html+='<div class="modal-word">'+data.word+'</div>';
+        html+='<div class="modal-meaning">'+data.m+'</div>';
+        html+='<button class="modal-speak en">🔊 听发音</button>';
+    }
+
+    body.innerHTML=html;
+    Q('modalOverlay').classList.add('show');
+
+    // 绑定按钮事件（避免 inline onclick 在 IIFE 中失效）
+    body.querySelectorAll('.hw-btn').forEach(function(btn){btn.addEventListener('click',startStrokeAnim)});
+    var speakBtn=body.querySelector('.modal-speak');
+    if(speakBtn){
+        var lang=isChar?'zh-CN':'en-US';
+        var text=isChar?data.ch:data.word;
+        speakBtn.addEventListener('click',function(){speak(text,lang)});
+    }
+
+    if(isChar){
+        setTimeout(function(){initHanziWriter(data.ch,data.n)},200);
+    }
+
+    if(isChar) speak(data.ch,'zh-CN');
+    else speak(data.word,'en-US');
+}
+
+function closeModal(){
+    Q('modalOverlay').classList.remove('show');
+    if(window.speechSynthesis) speechSynthesis.cancel();
+}
+
+// ==================== 英语模块 ====================
+function initAlphabet(){
+    var g=Q('alphabetGrid');g.innerHTML='';
+    alphabet.forEach(function(item){
+        var c=document.createElement('div');c.className='letter-card';
+        c.innerHTML='<span class="letter">'+item.letter+'</span><span class="letter-emoji">'+item.emoji+'</span><span class="letter-word">'+item.word+'</span>';
+        c.addEventListener('click',function(){showModal({emoji:item.emoji,word:item.word,m:item.m})});
+        g.appendChild(c);
+    });
+}
+
+var curCat='animals';
+function initCategoryBar(){
+    var bar=Q('categoryBar');bar.innerHTML='';
+    Object.entries(categories).forEach(function(e){
+        var k=e[0],cat=e[1],btn=document.createElement('button');
+        btn.className='cat-btn'+(k===curCat?' active':'');
+        btn.textContent=cat.name;
+        btn.addEventListener('click',function(){curCat=k;document.querySelectorAll('.cat-btn').forEach(function(b){b.classList.remove('active')});btn.classList.add('active');renderWordGrid()});
+        bar.appendChild(btn);
+    });
+}
+function renderWordGrid(){
+    var g=Q('wordGrid');g.innerHTML='';
+    categories[curCat].words.forEach(function(item,i){
+        var c=document.createElement('div');c.className='word-card';c.style.animationDelay=(i*.05)+'s';
+        c.innerHTML='<span class="word-emoji">'+item.emoji+'</span><span class="word-text">'+item.word+'</span><span class="word-mean">'+item.m+'</span>';
+        c.addEventListener('click',function(){showModal({emoji:item.emoji,word:item.word,m:item.m})});
+        g.appendChild(c);
+    });
+}
+
+var eqWords=[],eqCur=0,eqScore=0;
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}}
+function initEnQuiz(){
+    if(!eqWords.length) eqWords=alphabet.map(function(a){return{emoji:a.emoji,word:a.word,m:a.m}});
+    eqCur=0;eqScore=0;
+    Q('quizScore').textContent='0';Q('quizFeedback').textContent='';Q('quizNext').style.display='none';
+    enNext();
+}
+function enNext(){
+    if(eqCur>=10){Q('quizQuestion').textContent='🎉 真棒！';Q('quizEmoji').textContent='🏆';Q('quizOptions').innerHTML='';Q('quizFeedback').textContent='你得了 '+eqScore+' / 10 分！';Q('quizNext').style.display='block';Q('quizNext').textContent='🔄 再来一次';Q('quizNext').onclick=function(){eqCur=0;eqScore=0;Q('quizScore').textContent='0';Q('quizFeedback').textContent='';enNext()};return}
+    Q('quizNext').style.display='none';Q('quizFeedback').textContent='';Q('quizQuestion').textContent='这个用英语怎么说？';Q('quizNext').textContent='下一题 ➡️';Q('quizNext').onclick=enNext;
+    var correct=eqWords[Math.floor(Math.random()*eqWords.length)];
+    Q('quizEmoji').textContent=correct.emoji;
+    var opts=[correct.word],others=eqWords.filter(function(w){return w.word!==correct.word});
+    shuffle(others);for(var i=0;i<3&&i<others.length;i++) opts.push(others[i].word);
+    shuffle(opts);
+    var oc=Q('quizOptions');oc.innerHTML='';
+    opts.forEach(function(opt){
+        var btn=document.createElement('button');btn.className='quiz-opt';btn.textContent=opt;
+        btn.addEventListener('click',function(){
+            if(oc.dataset.done==='1') return;oc.dataset.done='1';
+            if(opt===correct.word){btn.classList.add('correct');Q('quizFeedback').textContent='✅ 太棒了！';Q('quizFeedback').style.color='var(--green)';eqScore++;Q('quizScore').textContent=eqScore}
+            else{btn.classList.add('wrong');Q('quizFeedback').textContent='❌ 答案是：'+correct.word;Q('quizFeedback').style.color='var(--pink)';oc.querySelectorAll('.quiz-opt').forEach(function(b){if(b.textContent===correct.word) b.classList.add('correct')})}
+            speak(correct.word,'en-US');eqCur++;Q('quizNext').style.display='inline-block';
+        });
+        oc.appendChild(btn);
+    });
+    oc.dataset.done='0';
+}
+
+function initDialogues(){
+    var list=Q('dialogueList');list.innerHTML='';
+    dialogues.forEach(function(d,di){
+        var card=document.createElement('div');card.className='dialogue-card';card.style.animationDelay=(di*.05)+'s';
+        var lh=d.lines.map(function(l,li){return'<div class="dialogue-line" data-di="'+di+'" data-li="'+li+'"><span class="dl-speaker">'+l.speaker+'</span><div class="dl-content"><span class="dl-en">'+l.en+'</span><span class="dl-zh">'+l.zh+'</span></div><span class="dl-speak">🔊</span></div>'}).join('');
+        card.innerHTML='<div class="dialogue-header"><span class="dialogue-emoji">'+d.emoji+'</span><span class="dialogue-title">'+d.title+'</span><span class="dialogue-arrow">▶</span></div><div class="dialogue-body" style="display:none">'+lh+'<button class="dialogue-play-all">🔊 播放全部</button></div>';
+        card.querySelector('.dialogue-header').addEventListener('click',function(){
+            var body=card.querySelector('.dialogue-body'),arrow=card.querySelector('.dialogue-arrow');
+            var opened=body.style.display!=='none';
+            list.querySelectorAll('.dialogue-body').forEach(function(b){b.style.display='none'});
+            list.querySelectorAll('.dialogue-arrow').forEach(function(a){a.textContent='▶'});
+            list.querySelectorAll('.dialogue-card').forEach(function(c){c.classList.remove('open')});
+            if(!opened){body.style.display='block';arrow.textContent='▼';card.classList.add('open')}
+        });
+        card.addEventListener('click',function(e){
+            var line=e.target.closest('.dialogue-line');
+            if(line) speak(dialogues[+line.dataset.di].lines[+line.dataset.li].en,'en-US');
+        });
+        card.querySelector('.dialogue-play-all').addEventListener('click',function(e){e.stopPropagation();var all=d.lines,delay=0;all.forEach(function(l){setTimeout(function(){speak(l.en,'en-US')},delay);delay+=1800})});
+        list.appendChild(card);
+    });
+}
+
+// ==================== 语文模块 ====================
+function initPinyin(){
+    var container=Q('pinyinContainer');container.innerHTML='';
+    pinyinData.forEach(function(group){
+        var sec=document.createElement('div');sec.className='pinyin-section';
+        var grid=document.createElement('div');grid.className='pinyin-grid';
+        group.items.forEach(function(py){
+            var card=document.createElement('div');card.className='pinyin-card';card.textContent=py;
+            card.addEventListener('click',function(){speak(py,'zh-CN')});
+            grid.appendChild(card);
+        });
+        sec.innerHTML='<div class="pinyin-section-title">'+group.title+'</div>';
+        sec.appendChild(grid);
+        container.appendChild(sec);
+    });
+}
+
+function initChars(){
+    var g=Q('charGrid');g.innerHTML='';
+    characters.forEach(function(item,i){
+        var c=document.createElement('div');c.className='char-card';
+        var pictoHTML=item.picto?'<div class="char-picto"><span class="picto-emoji">'+item.picto+'</span><span class="picto-arrow">→</span><span class="picto-char">'+item.ch+'</span></div>':'';
+        c.innerHTML='<span class="char-big">'+item.ch+'</span>'+pictoHTML+'<span class="char-pinyin">'+item.py+'</span>';
+        c.addEventListener('click',function(){showModal({ch:item.ch,py:item.py,m:item.m,picto:item.picto,n:item.n})});
+        g.appendChild(c);
+    });
+}
+
+function initPoems(){
+    var container=Q('poemContainer');container.innerHTML='';
+    poemsByGrade.forEach(function(gradeData){
+        var sec=document.createElement('div');sec.className='grade-section';
+        var header=document.createElement('div');header.className='grade-header';
+        header.innerHTML='<span>📚 '+gradeData.grade+'</span><span class="grade-count">'+gradeData.poems.length+'首</span><span class="grade-arrow">▼</span>';
+        var body=document.createElement('div');body.className='grade-body';
+        gradeData.poems.forEach(function(poem){
+            var card=document.createElement('div');card.className='poem-card';
+            card.innerHTML='<div class="poem-title">'+poem.title+'</div><div class="poem-author">'+poem.author+'</div><div class="poem-line">'+poem.lines.join('<br>')+'</div><button class="poem-play">🔊 朗读</button>';
+            card.querySelector('.poem-play').addEventListener('click',function(e){e.stopPropagation();speak(poem.lines.join(''),'zh-CN')});
+            body.appendChild(card);
+        });
+        header.addEventListener('click',function(){sec.classList.toggle('open')});
+        sec.appendChild(header);sec.appendChild(body);
+        container.appendChild(sec);
+    });
+}
+
+var cqCur=0,cqScore=0;
+function initCnQuiz(){
+    cqCur=0;cqScore=0;
+    Q('cnQuizScore').textContent='0';Q('cnQuizFeedback').textContent='';Q('cnQuizNext').style.display='none';
+    cnNext();
+}
+function cnNext(){
+    if(cqCur>=10){Q('cnQuizChar').textContent='🏆';Q('cnQuizOptions').innerHTML='';Q('cnQuizFeedback').textContent='你得了 '+cqScore+' / 10 分！';Q('cnQuizNext').style.display='block';Q('cnQuizNext').textContent='🔄 再来一次';Q('cnQuizNext').onclick=function(){cqCur=0;cqScore=0;Q('cnQuizScore').textContent='0';Q('cnQuizFeedback').textContent='';cnNext()};return}
+    Q('cnQuizNext').style.display='none';Q('cnQuizFeedback').textContent='';Q('cnQuizNext').textContent='下一题 ➡️';Q('cnQuizNext').onclick=cnNext;
+    var correct=characters[Math.floor(Math.random()*characters.length)];
+    Q('cnQuizChar').textContent=correct.ch;
+    var opts=[correct.py],others=characters.filter(function(c){return c.py!==correct.py});
+    shuffle(others);for(var i=0;i<3&&i<others.length;i++) opts.push(others[i].py);
+    shuffle(opts);
+    var oc=Q('cnQuizOptions');oc.innerHTML='';
+    opts.forEach(function(opt){
+        var btn=document.createElement('button');btn.className='cn-quiz-opt';btn.textContent=opt;
+        btn.addEventListener('click',function(){
+            if(oc.dataset.done==='1') return;oc.dataset.done='1';
+            if(opt===correct.py){btn.classList.add('correct');Q('cnQuizFeedback').textContent='✅ 太棒了！';Q('cnQuizFeedback').style.color='var(--green)';cqScore++;Q('cnQuizScore').textContent=cqScore}
+            else{btn.classList.add('wrong');Q('cnQuizFeedback').textContent='❌ 正确读音：'+correct.py;Q('cnQuizFeedback').style.color='var(--pink)';oc.querySelectorAll('.cn-quiz-opt').forEach(function(b){if(b.textContent===correct.py) b.classList.add('correct')})}
+            speak(correct.ch,'zh-CN');cqCur++;Q('cnQuizNext').style.display='inline-block';
+        });
+        oc.appendChild(btn);
+    });
+    oc.dataset.done='0';
+}
+
+// ==================== 语言/Tab 切换 ====================
+function Q(id){return document.getElementById(id)}
+
+function initEnTabs(){
+    Q('enTabBar').querySelectorAll('.tab').forEach(function(tab){
+        tab.addEventListener('click',function(){
+            var t=this.dataset.en;
+            Q('enTabBar').querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
+            Q('panelEn').querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});
+            this.classList.add('active');Q('en-'+t).classList.add('active');
+            if(t==='quiz') initEnQuiz();
+        });
+    });
+}
+
+function initCnTabs(){
+    Q('cnTabBar').querySelectorAll('.tab').forEach(function(tab){
+        tab.addEventListener('click',function(){
+            var t=this.dataset.cn;
+            Q('cnTabBar').querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
+            Q('panelCn').querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});
+            this.classList.add('active');Q('cn-'+t).classList.add('active');
+            if(t==='cnquiz') initCnQuiz();
+        });
+    });
+}
+
+function switchLang(lang){
+    var h=Q('header'),lo=Q('logo'),sl=Q('subLogo');
+    Q('langEn').classList.toggle('active',lang==='en');
+    Q('langCn').classList.toggle('active',lang==='cn');
+    Q('langMath').classList.toggle('active',lang==='math');
+    Q('panelEn').classList.toggle('show',lang==='en');
+    Q('panelCn').classList.toggle('show',lang==='cn');
+    Q('panelMath').classList.toggle('show',lang==='math');
+    if(lang==='en'){h.className='header en';lo.textContent='🌟 宝宝学英语';sl.textContent='A-Z · 单词 · 对话 · 小测验'}
+    else if(lang==='math'){h.className='header math';lo.textContent='🧮 宝宝学数学';sl.textContent='认数 · 加减 · 口诀 · 图形 · 时间 · 测验'}
+    else{h.className='header cn';lo.textContent='📖 宝宝学语文';sl.textContent='拼音 · 识字(象形+笔画) · 古诗 · 认字'}
+}
+
+// ==================== 数学模块 ====================
+function initNums(){
+    var g=Q('numGrid');g.innerHTML='';
+    numbers.forEach(function(item){
+        var c=document.createElement('div');c.className='num-card';
+        c.innerHTML='<span class="num-big">'+item.num+'</span><span class="num-cn">'+item.cn+'</span>'+(item.dots?'<span class="num-dots">'+item.dots+'</span>':'');
+        c.addEventListener('click',function(){speak(item.cn,'zh-CN')});
+        g.appendChild(c);
+    });
+}
+
+function initArith(){
+    var g=Q('arithGrid');g.innerHTML='';
+    arith.forEach(function(item){
+        var ans=item.op==='+'?item.a+item.b:item.a-item.b;
+        var pic=Array(item.a+1).join(item.emoji)+' '+item.op+' '+Array(item.b+1).join(item.emoji);
+        var c=document.createElement('div');c.className='arith-card';
+        c.innerHTML='<div class="arith-pic">'+pic+'</div><div class="arith-expr">'+item.a+' '+item.op+' '+item.b+' = ?</div><div class="arith-answer">'+ans+'</div>';
+        c.addEventListener('click',function(){speak(item.a+' '+item.op+' '+item.b+' 等于 '+ans,'zh-CN')});
+        g.appendChild(c);
+    });
+}
+
+function initShapes(){
+    var g=Q('shapeGrid');g.innerHTML='';
+    shapes.forEach(function(item){
+        var c=document.createElement('div');c.className='shape-card';
+        c.innerHTML='<span class="shape-emoji">'+item.emoji+'</span><span class="shape-name">'+item.name+'</span><span class="shape-desc">'+item.desc+'</span>';
+        c.addEventListener('click',function(){speak(item.name,'zh-CN')});
+        g.appendChild(c);
+    });
+}
+
+function initArith20(){
+    var g=Q('arithGrid20');g.innerHTML='';
+    arith20.forEach(function(item){
+        var ans=item.op==='+'?item.a+item.b:item.a-item.b;
+        var c=document.createElement('div');c.className='arith-card';
+        c.innerHTML='<div class="arith-pic" style="font-size:15px;color:#94A3B8;min-height:20px">'+(item.op==='+'?'凑十法':'破十法')+'</div><div class="arith-expr">'+item.a+' '+item.op+' '+item.b+' = ?</div><div class="arith-answer">'+ans+'</div>';
+        c.addEventListener('click',function(){speak(item.a+' '+item.op+' '+item.b+' 等于 '+numToCn(ans),'zh-CN')});
+        g.appendChild(c);
+    });
+}
+
+function initTimes(){
+    var g=Q('timesGrid');g.innerHTML='';
+    timesTable.forEach(function(item){
+        var c=document.createElement('div');c.className='times-card';
+        c.innerHTML='<div class="times-expr">'+item.a+'×'+item.b+'='+item.ans+'</div><div class="times-read">'+item.read+'</div>';
+        c.addEventListener('click',function(){speak(item.read,'zh-CN')});
+        g.appendChild(c);
+    });
+}
+
+function initShapes3d(){
+    var g=Q('shape3dGrid');g.innerHTML='';
+    shapes3d.forEach(function(item){
+        var c=document.createElement('div');c.className='shape-card';
+        c.innerHTML='<span class="shape-emoji">'+item.emoji+'</span><span class="shape-name">'+item.name+'</span><span class="shape-desc">'+item.desc+'</span>';
+        c.addEventListener('click',function(){speak(item.name,'zh-CN')});
+        g.appendChild(c);
+    });
+}
+
+function clockSVG(h,m){
+    var nums='';
+    for(var i=1;i<=12;i++){
+        var ang=(i*30-90)*Math.PI/180;
+        var x=50+37*Math.cos(ang), y=50+37*Math.sin(ang);
+        nums+='<text x="'+x.toFixed(1)+'" y="'+(y+3.8).toFixed(1)+'" font-size="11" font-weight="800" fill="#475569" text-anchor="middle">'+i+'</text>';
+    }
+    var hA=((h%12)*30+m*0.5);
+    var mA=m*6;
+    return '<svg viewBox="0 0 100 100" width="92" height="92">'+
+        '<circle cx="50" cy="50" r="46" fill="#FFFFFF" stroke="#0E9F6E" stroke-width="3"/>'+
+        nums+
+        '<line x1="50" y1="50" x2="50" y2="32" stroke="#334155" stroke-width="4.5" stroke-linecap="round" transform="rotate('+hA+' 50 50)"/>'+
+        '<line x1="50" y1="50" x2="50" y2="19" stroke="#0E9F6E" stroke-width="2.5" stroke-linecap="round" transform="rotate('+mA+' 50 50)"/>'+
+        '<circle cx="50" cy="50" r="3.8" fill="#0E9F6E"/></svg>';
+}
+
+function initClock(){
+    var g1=Q('clockGrid');g1.innerHTML='';
+    clockWhole.forEach(function(item){
+        var c=document.createElement('div');c.className='clock-card';
+        c.innerHTML='<div class="clock-face">'+clockSVG(item.hour,item.minute)+'</div><span class="clock-time">'+item.time+'</span><span class="clock-read">'+item.read+'</span>';
+        c.addEventListener('click',function(){speak(item.read,'zh-CN')});
+        g1.appendChild(c);
+    });
+    var g2=Q('clockHalfGrid');g2.innerHTML='';
+    clockHalfArr.forEach(function(item){
+        var c=document.createElement('div');c.className='clock-card';
+        c.innerHTML='<div class="clock-face">'+clockSVG(item.hour,item.minute)+'</div><span class="clock-time">'+item.time+'</span><span class="clock-read">'+item.read+'</span>';
+        c.addEventListener('click',function(){speak(item.read,'zh-CN')});
+        g2.appendChild(c);
+    });
+}
+
+var mqCur=0,mqScore=0;
+function initMathQuiz(){
+    mqCur=0;mqScore=0;
+    Q('mathQuizScore').textContent='0';Q('mathQuizFeedback').textContent='';Q('mathQuizNext').style.display='none';
+    mathNext();
+}
+function mathNext(){
+    if(mqCur>=10){Q('mathQuizExpr').textContent='🏆';Q('mathQuizOptions').innerHTML='';Q('mathQuizFeedback').textContent='你得了 '+mqScore+' / 10 分！';Q('mathQuizNext').style.display='block';Q('mathQuizNext').textContent='🔄 再来一次';Q('mathQuizNext').onclick=function(){mqCur=0;mqScore=0;Q('mathQuizScore').textContent='0';Q('mathQuizFeedback').textContent='';mathNext()};return}
+    Q('mathQuizNext').style.display='none';Q('mathQuizFeedback').textContent='';Q('mathQuizNext').textContent='下一题 ➡️';Q('mathQuizNext').onclick=mathNext;
+    // 随机混合题型：10以内加减 / 20以内加减 / 乘法口诀
+    var type=Math.floor(Math.random()*3);
+    var expr,ans;
+    if(type===0){
+        var isAdd=Math.random()<0.6;
+        var a,b;
+        if(isAdd){a=Math.floor(Math.random()*9)+1;b=Math.floor(Math.random()*(10-a))+1;ans=a+b}
+        else{a=Math.floor(Math.random()*9)+2;b=Math.floor(Math.random()*(a-1))+1;ans=a-b}
+        expr=a+' '+(isAdd?'+':'-')+' '+b;
+    }else if(type===1){
+        var it=arith20[Math.floor(Math.random()*arith20.length)];
+        ans=it.op==='+'?it.a+it.b:it.a-it.b;
+        expr=it.a+' '+it.op+' '+it.b;
+    }else{
+        var tm=timesTable[Math.floor(Math.random()*timesTable.length)];
+        ans=tm.ans;
+        expr=tm.a+' × '+tm.b;
+    }
+    Q('mathQuizExpr').textContent=expr+' = ?';
+    // 生成选项
+    var opts=[ans];
+    while(opts.length<4){var cand=ans+(Math.floor(Math.random()*9)-4);if(cand<0) continue;if(opts.indexOf(cand)===-1) opts.push(cand)}
+    shuffle(opts);
+    var oc=Q('mathQuizOptions');oc.innerHTML='';
+    opts.forEach(function(opt){
+        var btn=document.createElement('button');btn.className='math-quiz-opt';btn.textContent=opt;
+        btn.addEventListener('click',function(){
+            if(oc.dataset.done==='1') return;oc.dataset.done='1';
+            if(opt===ans){btn.classList.add('correct');Q('mathQuizFeedback').textContent='✅ 太棒了！';Q('mathQuizFeedback').style.color='var(--green)';mqScore++;Q('mathQuizScore').textContent=mqScore}
+            else{btn.classList.add('wrong');Q('mathQuizFeedback').textContent='❌ 答案是：'+ans;Q('mathQuizFeedback').style.color='var(--pink)';oc.querySelectorAll('.math-quiz-opt').forEach(function(b){if(+b.textContent===ans) b.classList.add('correct')})}
+            speak(numToCn(ans),'zh-CN');mqCur++;Q('mathQuizNext').style.display='inline-block';
+        });
+        oc.appendChild(btn);
+    });
+    oc.dataset.done='0';
+}
+
+function initMathTabs(){
+    Q('mathTabBar').querySelectorAll('.tab').forEach(function(tab){
+        tab.addEventListener('click',function(){
+            var t=this.dataset.math;
+            Q('mathTabBar').querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
+            Q('panelMath').querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});
+            this.classList.add('active');Q('math-'+t).classList.add('active');
+            if(t==='mquiz') initMathQuiz();
+        });
+    });
+}
+
+Q('langEn').addEventListener('click',function(){switchLang('en')});
+Q('langCn').addEventListener('click',function(){switchLang('cn')});
+Q('langMath').addEventListener('click',function(){switchLang('math')});
+Q('modalClose').addEventListener('click',closeModal);
+Q('modalOverlay').addEventListener('click',function(e){if(e.target===Q('modalOverlay')) closeModal()});
+
+// ==================== 初始化 ====================
+if('speechSynthesis' in window){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=function(){speechSynthesis.getVoices()}}
+initAlphabet();initCategoryBar();renderWordGrid();initDialogues();initEnTabs();initEnQuiz();
+initPinyin();initChars();initPoems();initCnTabs();
+initNums();initArith();initArith20();initTimes();initShapes();initShapes3d();initClock();initMathTabs();
+})();
+</script>
+</body>
+</html>
