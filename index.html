@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>🌟 宝宝学习乐园</title>
 <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+<script src="chars-1.js"></script>
+<script src="chars-2.js"></script>
+<script src="chars-3.js"></script>
+<script src="chars-4.js"></script>
+<script src="chars-5.js"></script>
+<script src="chars-6.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{--pink:#FF6B8A;--blue:#5B9EFF;--green:#4ECB71;--yellow:#FFC048;--purple:#A78BFA;--orange:#FF8C52;--red:#E85D5D;--card-shadow:0 4px 16px rgba(0,0,0,.08)}
@@ -56,7 +62,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .letter-card:nth-child(8n+5) .letter{color:var(--purple)}.letter-card:nth-child(8n+6) .letter{color:#F472B6}
 .letter-card:nth-child(8n+7) .letter{color:#34D399}.letter-card:nth-child(8n+8) .letter{color:#FB923C}
 
-.category-bar{display:flex;gap:8px;padding:8px 0 14px;overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap}
+.category-bar{display:flex;gap:8px;padding:8px 0 14px;overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;user-select:none}
 .category-bar::-webkit-scrollbar{display:none}
 .cat-btn{flex-shrink:0;padding:10px 16px;border:2px solid #E5E7EB;border-radius:20px;font-size:14px;font-weight:700;cursor:pointer;background:#fff;color:#555;transition:all .25s;white-space:nowrap}
 .cat-btn.active{border-color:var(--blue);background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;box-shadow:0 3px 12px rgba(91,158,255,.35)}
@@ -230,6 +236,46 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .modal-speak.cn{background:linear-gradient(135deg,var(--red),var(--orange));box-shadow:0 4px 14px rgba(232,93,93,.4)}
 .modal-speak:active{transform:scale(.9)}
 
+/* ===== 洪恩式四步识字：玩 → 认 → 练 → 写 ===== */
+.learn-step{display:flex;justify-content:center;gap:8px;margin:4px 0 14px}
+.learn-step .step{font-size:13px;font-weight:700;color:#bbb;padding:5px 12px;border-radius:14px;background:#F3F4F6;transition:all .3s;border:none;cursor:pointer}
+.learn-step .step.done{background:var(--green);color:#fff}
+.learn-step .step.cur{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;transform:scale(1.08);box-shadow:0 4px 12px rgba(232,93,93,.35)}
+.learn-title{font-size:17px;font-weight:800;color:#333;margin:6px 0 10px}
+.learn-sub{font-size:13px;color:#999;margin-bottom:12px}
+.learn-char-big{font-size:92px;font-weight:900;color:var(--red);line-height:1.05;text-shadow:0 6px 16px rgba(232,93,93,.2)}
+.learn-picto{display:flex;align-items:center;justify-content:center;gap:10px;margin:12px 0 4px;padding:12px;background:#FFF9F0;border-radius:16px}
+.learn-picto span{font-size:44px}
+.learn-picto .arrow{font-size:26px;color:var(--orange)}
+.learn-picto-label{font-size:11px;color:#aaa;margin:4px 0 10px}
+.learn-story{background:#F0F7FF;border-left:4px solid var(--blue);border-radius:10px;padding:10px 12px;margin:10px 0;text-align:left;font-size:14px;color:#4B5563;line-height:1.6}
+.learn-story b{color:var(--blue)}
+.learn-info{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:6px 0}
+.learn-tag{font-size:13px;padding:5px 12px;border-radius:12px;font-weight:700}
+.learn-tag.py{background:#EEF3FF;color:var(--blue)}
+.learn-tag.rad{background:#FFF4E6;color:var(--orange)}
+.learn-tag.mean{background:#EFFBF1;color:var(--green)}
+.learn-line{font-size:14px;color:#555;margin:8px 0;line-height:1.7;text-align:left;padding:0 4px}
+.learn-line b{color:var(--red)}
+.guess-emoji{font-size:84px;display:block;margin:8px auto;animation:bounce 1s infinite}
+.guess-opts{display:flex;justify-content:center;gap:14px;margin:18px 0 10px}
+.guess-opt{font-size:40px;font-weight:900;color:#fff;width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,var(--blue),var(--purple));box-shadow:0 6px 14px rgba(91,158,255,.35);cursor:pointer;transition:all .2s;border:none}
+.guess-opt:active{transform:scale(.9)}
+.guess-opt.wrong{background:#E5E7EB;color:#999;animation:shake .4s}
+.guess-opt.right{background:linear-gradient(135deg,var(--green),#34D399);animation:popIn .4s}
+.learn-opt{display:block;width:100%;margin:8px 0;padding:13px;font-size:18px;font-weight:800;border:2px solid #EDEFF2;border-radius:14px;background:#fff;color:#333;cursor:pointer;transition:all .2s}
+.learn-opt:active{transform:scale(.97)}
+.learn-opt.right{border-color:var(--green);background:#EFFBF1;color:var(--green)}
+.learn-opt.wrong{border-color:var(--pink);background:#FFF0F3;color:var(--pink);animation:shake .4s}
+.learn-feedback{min-height:24px;font-size:15px;font-weight:800;margin:8px 0}
+.learn-next{margin-top:10px;padding:13px 30px;font-size:16px;font-weight:800;border:none;border-radius:18px;color:#fff;cursor:pointer;background:linear-gradient(135deg,var(--red),var(--orange));box-shadow:0 6px 16px rgba(232,93,93,.4);transition:all .2s}
+.learn-next:active{transform:scale(.94)}
+.learn-next.green{background:linear-gradient(135deg,var(--green),#34D399);box-shadow:0 6px 16px rgba(78,203,113,.4)}
+.learn-next.ghost{background:#F3F4F6;color:#666;box-shadow:none}
+.learn-done-emoji{font-size:64px;display:block;animation:popIn .5s}
+.learn-done-title{font-size:20px;font-weight:900;color:var(--green);margin:10px 0}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
 @media(min-width:600px){
 .alphabet-grid,.char-grid{grid-template-columns:repeat(6,1fr);max-width:600px;margin:0 auto}
 .word-grid{grid-template-columns:repeat(4,1fr);max-width:600px;margin:0 auto}
@@ -273,7 +319,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
         <button class="tab cn-tab" data-cn="cnquiz">🎮认字</button>
     </nav>
     <div class="tab-panel active" id="cn-pinyin"><div id="pinyinContainer"></div></div>
-    <div class="tab-panel" id="cn-char"><div class="char-grid" id="charGrid"></div></div>
+    <div class="tab-panel" id="cn-char"><div class="category-bar" id="charGroupBar"></div><div class="char-grid" id="charGrid"></div></div>
     <div class="tab-panel" id="cn-poem"><div id="poemContainer"></div></div>
     <div class="tab-panel" id="cn-cnquiz"><div class="cn-quiz-container"><div class="quiz-score">⭐<span id="cnQuizScore">0</span></div><div class="quiz-question">这个字怎么读？</div><div class="cn-quiz-char" id="cnQuizChar">人</div><div class="cn-quiz-options" id="cnQuizOptions"></div><div class="quiz-feedback" id="cnQuizFeedback"></div><button class="quiz-next cn-next" id="cnQuizNext" style="display:none">下一题 ➡️</button></div></div>
 </div>
@@ -392,20 +438,9 @@ var pinyinData=[
 ];
 
 // 汉字数据：Hanzi Writer 通过 CDN 加载笔画数据
-var characters=[
-{ch:'一',py:'yī',m:'one',picto:'1️⃣',n:1},{ch:'二',py:'èr',m:'two',picto:'2️⃣',n:2},{ch:'三',py:'sān',m:'three',picto:'3️⃣',n:3},
-{ch:'十',py:'shí',m:'ten',picto:'🔟',n:2},{ch:'人',py:'rén',m:'person',picto:'🚶',n:2},
-{ch:'大',py:'dà',m:'big',picto:'🧍',n:3},{ch:'天',py:'tiān',m:'sky',picto:'🌤️',n:4},
-{ch:'口',py:'kǒu',m:'mouth',picto:'👄',n:3},{ch:'日',py:'rì',m:'sun',picto:'☀️',n:4},
-{ch:'月',py:'yuè',m:'moon',picto:'🌙',n:4},{ch:'山',py:'shān',m:'mountain',picto:'⛰️',n:3},
-{ch:'水',py:'shuǐ',m:'water',picto:'💧',n:4},{ch:'火',py:'huǒ',m:'fire',picto:'🔥',n:4},
-{ch:'木',py:'mù',m:'tree',picto:'🌳',n:4},{ch:'田',py:'tián',m:'field',picto:'🌾',n:5},
-{ch:'目',py:'mù',m:'eye',picto:'👁️',n:5},{ch:'上',py:'shàng',m:'up',picto:'⬆️',n:3},
-{ch:'下',py:'xià',m:'down',picto:'⬇️',n:3},
-{ch:'花',py:'huā',m:'flower',picto:'🌸',n:7},{ch:'鸟',py:'niǎo',m:'bird',picto:'🐦',n:5},
-{ch:'鱼',py:'yú',m:'fish',picto:'🐟',n:8},{ch:'虫',py:'chóng',m:'insect',picto:'🐛',n:6},
-{ch:'云',py:'yún',m:'cloud',picto:'☁️',n:4},{ch:'雨',py:'yǔ',m:'rain',picto:'🌧️',n:8}
-];
+// 字段：ch 汉字 / py 拼音 / m 中文释义 / picto 象形图 / n 笔画数
+//       radical 部首 / story 字源字理 / words 组词 / sentence 造句
+var characters=window.__CHARS||[];
 
 var poemsByGrade=[
 {grade:'一年级上册',poems:[
@@ -637,19 +672,26 @@ function initHanziWriter(char, strokeCount){
     if(currentWriter){try{currentWriter.target.innerHTML=''}catch(e){};currentWriter=null}
     var wrap=document.getElementById('hwWrap');
     if(!wrap) return;
+    // HanziWriter CDN 未加载时的降级提示
+    if(typeof HanziWriter==='undefined'){
+        wrap.innerHTML='<div style="padding:70px 12px;color:#999;font-size:13px;line-height:1.8">✍️ 笔画动画加载失败<br>请联网后重试</div>';
+        return;
+    }
     wrap.querySelector('.hw-inner').innerHTML='';
     var hwOpts={width:200,height:200,padding:5,showOutline:true,strokeAnimationSpeed:1,delayBetweenStrokes:600,strokeColor:'#E85D5D',radicalColor:'#E85D5D',outlineColor:'#DDD',highlightColor:'#AAF',drawingColor:'#333'};
     currentWriter=HanziWriter.create(wrap.querySelector('.hw-inner'),char,hwOpts);
-    // 设置步骤点
-    var stepDiv=wrap.querySelector('.hw-step');
-    stepDiv.innerHTML='';
-    for(var i=0;i<strokeCount;i++){var d=document.createElement('span');d.className='step-dot done';d.textContent=i+1;stepDiv.appendChild(d)}
+    // 设置步骤点（.hw-step 在 hw-wrap 之外，是兄弟节点）
+    var stepDiv=document.querySelector('.hw-step');
+    if(stepDiv){
+        stepDiv.innerHTML='';
+        for(var i=0;i<strokeCount;i++){var d=document.createElement('span');d.className='step-dot done';d.textContent=i+1;stepDiv.appendChild(d)}
+    }
 }
 
 function startStrokeAnim(){
     if(!currentWriter) return;
     // 重置步骤点
-    var dots=document.querySelectorAll('#hwWrap .step-dot');
+    var dots=document.querySelectorAll('.hw-step .step-dot');
     dots.forEach(function(d){d.className='step-dot'});
     // 先隐藏，再动画
     currentWriter.hideCharacter({duration:200}).then(function(){
@@ -672,54 +714,207 @@ var currentModalData=null;
 
 function showModal(data){
     currentModalData=data;
-    var isChar=!!data.ch;
+    if(data.ch){openCharLearn(data);return;}
+
+    // 英语弹窗（原逻辑）
     var body=Q('modalBody');
-    var html='';
+    var html='<div class="modal-emoji">'+(data.emoji||'')+'</div>'
+        +'<div class="modal-word">'+data.word+'</div>'
+        +'<div class="modal-meaning">'+data.m+'</div>'
+        +'<button class="modal-speak en">🔊 听发音</button>';
+    body.innerHTML=html;
+    Q('modalOverlay').classList.add('show');
+    var speakBtn=body.querySelector('.modal-speak');
+    if(speakBtn) speakBtn.addEventListener('click',function(){speak(data.word,'en-US')});
+    speak(data.word,'en-US');
+}
 
-    if(isChar){
-        html+='<div class="modal-char">'+data.ch+'</div>';
-        if(data.picto){
-            html+='<div class="modal-picto"><span>'+data.picto+'</span><span class="arrow">➡️</span><span style="font-weight:900;color:var(--red)">'+data.ch+'</span></div>';
-            html+='<div class="modal-picto-label">象形演变</div>';
+// ==================== 洪恩式四步识字（玩 → 认 → 练 → 写）====================
+var cs=null; // 当前识字学习状态 {data,step,sub,score,locked}
+
+function openCharLearn(data){
+    cs={data:data,step:0,sub:0,score:0,locked:false};
+    Q('modalOverlay').classList.add('show');
+    renderCharLearn();
+}
+
+function learnStepBar(){
+    var names=['玩','认','练','写'];
+    var html='<div class="learn-step">';
+    names.forEach(function(n,i){
+        var cls=i<cs.step?'done':(i===cs.step?'cur':'');
+        html+='<button class="step '+cls+'" data-action="goto" data-step="'+i+'">'+n+'</button>';
+    });
+    return html+'</div>';
+}
+
+function renderCharLearn(){
+    var body=Q('modalBody');
+    var d=cs.data;
+    var html=learnStepBar();
+
+    if(cs.step===0){
+        // 玩：看图猜字
+        var opts=[d];
+        var others=characters.filter(function(c){return c.ch!==d.ch});
+        shuffle(others);
+        for(var i=0;i<2&&i<others.length;i++) opts.push(others[i]);
+        shuffle(opts);
+        html+='<div class="learn-title">🎈 玩一玩</div>';
+        if(d.picto){
+            html+='<div class="learn-sub">猜一猜，这个图是什么字？</div>';
+            html+='<span class="guess-emoji">'+d.picto+'</span>';
+        }else{
+            var guessWord=(d.words&&d.words[0])?d.words[0]:d.ch;
+            html+='<div class="learn-sub">「'+guessWord+'」这个词里有这个字，猜猜是哪个？</div>';
+            html+='<span class="guess-emoji">🔤</span>';
         }
-        html+='<div class="modal-pinyin">'+data.py+'</div>';
-        html+='<div class="modal-meaning">'+data.m+'</div>';
-
-        // Hanzi Writer 笔画区
+        html+='<div class="guess-opts">';
+        opts.forEach(function(o){
+            html+='<button class="guess-opt" data-action="guess" data-val="'+o.ch+'">'+o.ch+'</button>';
+        });
+        html+='</div><div class="learn-feedback" id="learnFeedback"></div>';
+        html+='<button class="learn-next ghost" data-action="skip">跳过 ➡️</button>';
+    }
+    else if(cs.step===1){
+        // 认：字源字理 + 拼音 + 组词造句
+        html+='<div class="learn-char-big">'+d.ch+'</div>';
+        if(d.picto){
+            html+='<div class="learn-picto"><span>'+d.picto+'</span><span class="arrow">➡️</span><span style="font-weight:900;color:var(--red)">'+d.ch+'</span></div>';
+            html+='<div class="learn-picto-label">象形演变</div>';
+        }
+        html+='<div class="learn-info">'
+            +'<span class="learn-tag py">'+d.py+'</span>'
+            +'<span class="learn-tag rad">部首：'+d.radical+'</span>'
+            +'<span class="learn-tag mean">'+d.m+'</span>'
+            +'</div>';
+        if(d.story) html+='<div class="learn-story"><b>📖 记字小窍门</b><br>'+d.story+'</div>';
+        if(d.words&&d.words.length) html+='<div class="learn-line"><b>组词：</b>'+d.words.join('、')+'</div>';
+        if(d.sentence) html+='<div class="learn-line"><b>造句：</b>'+d.sentence+'</div>';
+        html+='<button class="learn-next" data-action="speak-again">🔊 再听一遍</button>';
+        html+='<button class="learn-next green" data-action="next">练一练 ➡️</button>';
+    }
+    else if(cs.step===2){
+        if(cs.sub===0){
+            // 练 · 题1：看字选拼音
+            var pys=[d.py];
+            var op=characters.filter(function(c){return c.py!==d.py});
+            shuffle(op);
+            for(var j=0;j<op.length&&pys.length<4;j++){if(pys.indexOf(op[j].py)===-1) pys.push(op[j].py)}
+            shuffle(pys);
+            html+='<div class="learn-title">✏️ 练一练（1/2）</div>';
+            html+='<div class="learn-sub">这个字怎么读？点一点正确的拼音</div>';
+            html+='<div class="learn-char-big">'+d.ch+'</div>';
+            html+='<div id="learnOptions">';
+            pys.forEach(function(p){
+                html+='<button class="learn-opt" data-action="pick-py" data-val="'+p+'">'+p+'</button>';
+            });
+            html+='</div><div class="learn-feedback" id="learnFeedback"></div>';
+        }else{
+            // 练 · 题2：听音选字
+            var chars=[d];
+            var oc=characters.filter(function(c){return c.ch!==d.ch && c.py!==d.py});
+            shuffle(oc);
+            for(var k=0;k<2&&k<oc.length;k++) chars.push(oc[k]);
+            shuffle(chars);
+            html+='<div class="learn-title">✏️ 练一练（2/2）</div>';
+            html+='<div class="learn-sub">听一听，找出读 '+d.py+' 的字</div>';
+            html+='<button class="learn-next ghost" data-action="speak-py">🔊 听读音</button>';
+            html+='<div id="learnOptions" class="guess-opts">';
+            chars.forEach(function(c){
+                html+='<button class="guess-opt" data-action="pick-char" data-val="'+c.ch+'">'+c.ch+'</button>';
+            });
+            html+='</div><div class="learn-feedback" id="learnFeedback"></div>';
+        }
+    }
+    else if(cs.step===3){
+        // 写：笔画描红
+        html+='<div class="learn-title">🖊️ 写一写</div>';
+        html+='<div class="learn-sub">跟着笔画，用手指描一描</div>';
         html+='<div class="hw-wrap" id="hwWrap"><div class="hw-inner"></div></div>';
         html+='<div class="hw-step"></div>';
-        html+='<div class="hw-btns"><button class="hw-btn write">✏️ 写一遍</button><button class="hw-btn replay">🔄 重写</button></div>';
-        html+='<button class="modal-speak cn">🔊 听发音</button>';
-    }else{
-        html+='<div class="modal-emoji">'+(data.emoji||'')+'</div>';
-        html+='<div class="modal-word">'+data.word+'</div>';
-        html+='<div class="modal-meaning">'+data.m+'</div>';
-        html+='<button class="modal-speak en">🔊 听发音</button>';
+        html+='<div class="hw-btns"><button class="hw-btn write" data-action="write">✏️ 写一遍</button><button class="hw-btn replay" data-action="replay">🔄 重写</button></div>';
+        html+='<button class="learn-next green" data-action="finish">完成 ✅</button>';
+    }
+    else {
+        // 完成
+        html+='<span class="learn-done-emoji">🎉</span>';
+        html+='<div class="learn-done-title">学会了「'+d.ch+'」！</div>';
+        html+='<div class="learn-sub">你一共得到 ⭐ × '+cs.score+'</div>';
+        html+='<button class="learn-next green" data-action="again">🔁 再学一次</button>';
     }
 
     body.innerHTML=html;
-    Q('modalOverlay').classList.add('show');
+    if(cs.step===3) setTimeout(function(){initHanziWriter(d.ch,d.n)},200);
+    if(cs.step===0) speak('猜一猜，这是什么字？','zh-CN');
+    else if(cs.step===1) speak(d.ch,'zh-CN');
+    else if(cs.step===2 && cs.sub===1) speak(d.py,'zh-CN');
+}
 
-    // 绑定按钮事件（避免 inline onclick 在 IIFE 中失效）
-    body.querySelectorAll('.hw-btn').forEach(function(btn){btn.addEventListener('click',startStrokeAnim)});
-    var speakBtn=body.querySelector('.modal-speak');
-    if(speakBtn){
-        var lang=isChar?'zh-CN':'en-US';
-        var text=isChar?data.ch:data.word;
-        speakBtn.addEventListener('click',function(){speak(text,lang)});
+// 四步识字交互（事件委托，绑定在 modalBody 上）
+function onLearnAction(e){
+    var el=e.target.closest('[data-action]');
+    if(!el||!cs) return;
+    var act=el.getAttribute('data-action');
+    var d=cs.data;
+    var fb=Q('learnFeedback');
+    if(act==='goto'){
+        var s=parseInt(el.getAttribute('data-step'),10);
+        if(!isNaN(s)&&s>=0&&s<=3){cs.step=s;cs.sub=0;cs.locked=false;renderCharLearn();}
+        return;
     }
-
-    if(isChar){
-        setTimeout(function(){initHanziWriter(data.ch,data.n)},200);
+    if(act==='skip'){cs.step=1;renderCharLearn();return}
+    if(act==='speak-again'){speak(d.ch,'zh-CN');return}
+    if(act==='speak-py'){speak(d.py,'zh-CN');return}
+    if(act==='next'){cs.step=2;cs.sub=0;renderCharLearn();return}
+    if(act==='guess'){
+        if(cs.locked) return;
+        if(el.getAttribute('data-val')===d.ch){
+            el.classList.add('right');cs.locked=true;cs.score++;
+            if(fb){fb.style.color='var(--green)';fb.textContent='✅ 太棒了！就是「'+d.ch+'」'}
+            speak(d.ch,'zh-CN');
+            setTimeout(function(){cs.locked=false;cs.step=1;renderCharLearn()},900);
+        }else{
+            el.classList.add('wrong');
+            if(fb){fb.style.color='var(--pink)';fb.textContent='再想想哦～'}
+        }
+        return;
     }
-
-    if(isChar) speak(data.ch,'zh-CN');
-    else speak(data.word,'en-US');
+    if(act==='pick-py'){
+        if(cs.locked) return;
+        if(el.getAttribute('data-val')===d.py){
+            el.classList.add('right');cs.locked=true;cs.score++;
+            if(fb){fb.style.color='var(--green)';fb.textContent='✅ 正确！'}
+            speak(d.ch,'zh-CN');
+            setTimeout(function(){cs.locked=false;cs.sub=1;renderCharLearn()},900);
+        }else{
+            el.classList.add('wrong');
+            if(fb){fb.style.color='var(--pink)';fb.textContent='❌ 再试试～'}
+        }
+        return;
+    }
+    if(act==='pick-char'){
+        if(cs.locked) return;
+        if(el.getAttribute('data-val')===d.ch){
+            el.classList.add('right');cs.locked=true;cs.score++;
+            if(fb){fb.style.color='var(--green)';fb.textContent='✅ 找到啦！'}
+            speak(d.ch,'zh-CN');
+            setTimeout(function(){cs.locked=false;cs.step=3;renderCharLearn()},900);
+        }else{
+            el.classList.add('wrong');
+            if(fb){fb.style.color='var(--pink)';fb.textContent='再找找～'}
+        }
+        return;
+    }
+    if(act==='write'||act==='replay'){startStrokeAnim();return}
+    if(act==='finish'){cs.step=4;renderCharLearn();return}
+    if(act==='again'){cs={data:cs.data,step:0,sub:0,score:0,locked:false};renderCharLearn();return}
 }
 
 function closeModal(){
     Q('modalOverlay').classList.remove('show');
     if(window.speechSynthesis) speechSynthesis.cancel();
+    cs=null;
 }
 
 // ==================== 英语模块 ====================
@@ -825,13 +1020,55 @@ function initPinyin(){
 }
 
 function initChars(){
-    var g=Q('charGrid');g.innerHTML='';
-    characters.forEach(function(item,i){
+    var bar=Q('charGroupBar');bar.innerHTML='';
+    var groups=[];var seen={};
+    characters.forEach(function(c){var g=c.group||'常用';if(!seen[g]){seen[g]=1;groups.push(g)}});
+    bar.appendChild(makeGroupBtn('全部',true));
+    groups.forEach(function(g){bar.appendChild(makeGroupBtn(g,false))});
+    enableDragScroll(bar);
+    renderCharGroup('全部');
+}
+// 让横向分组栏支持鼠标拖拽滚动（桌面/预览面板）
+function enableDragScroll(el){
+    var isDown=false,startX=0,startY=0,scrollLeft=0,moved=false;
+    el.style.cursor='grab';
+    el.addEventListener('mousedown',function(e){
+        isDown=true;moved=false;
+        startX=e.pageX;startY=e.pageY;scrollLeft=el.scrollLeft;
+        el.style.cursor='grabbing';
+    });
+    el.addEventListener('mousemove',function(e){
+        if(!isDown) return;
+        var dx=e.pageX-startX, dy=e.pageY-startY;
+        if(Math.abs(dx)>4||Math.abs(dy)>4) moved=true;
+        if(moved){e.preventDefault();el.scrollLeft=scrollLeft-dx;}
+    });
+    el.addEventListener('mouseup',function(){isDown=false;el.style.cursor='grab';});
+    el.addEventListener('mouseleave',function(){isDown=false;el.style.cursor='grab';});
+    // 拖拽后抑制按钮误触（捕获阶段拦截）
+    el.addEventListener('click',function(e){
+        if(moved){e.stopPropagation();e.preventDefault();moved=false;}
+    },true);
+}
+function makeGroupBtn(g,active){
+    var b=document.createElement('button');b.className='cat-btn'+(active?' active':'');
+    b.textContent=g;
+    b.addEventListener('click',function(){
+        Q('charGroupBar').querySelectorAll('.cat-btn').forEach(function(x){x.classList.remove('active')});
+        b.classList.add('active');
+        renderCharGroup(g);
+    });
+    return b;
+}
+function renderCharGroup(g){
+    var grid=Q('charGrid');grid.innerHTML='';
+    characters.forEach(function(item){
+        if(g!=='全部' && (item.group||'常用')!==g) return;
         var c=document.createElement('div');c.className='char-card';
         var pictoHTML=item.picto?'<div class="char-picto"><span class="picto-emoji">'+item.picto+'</span><span class="picto-arrow">→</span><span class="picto-char">'+item.ch+'</span></div>':'';
         c.innerHTML='<span class="char-big">'+item.ch+'</span>'+pictoHTML+'<span class="char-pinyin">'+item.py+'</span>';
-        c.addEventListener('click',function(){showModal({ch:item.ch,py:item.py,m:item.m,picto:item.picto,n:item.n})});
-        g.appendChild(c);
+        c.addEventListener('click',function(){showModal(item)});
+        grid.appendChild(c);
     });
 }
 
@@ -1083,6 +1320,7 @@ Q('langCn').addEventListener('click',function(){switchLang('cn')});
 Q('langMath').addEventListener('click',function(){switchLang('math')});
 Q('modalClose').addEventListener('click',closeModal);
 Q('modalOverlay').addEventListener('click',function(e){if(e.target===Q('modalOverlay')) closeModal()});
+Q('modalBody').addEventListener('click',onLearnAction);
 
 // ==================== 初始化 ====================
 if('speechSynthesis' in window){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=function(){speechSynthesis.getVoices()}}
