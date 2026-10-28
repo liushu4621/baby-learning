@@ -81,6 +81,45 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .pinyin-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
 .pinyin-card{aspect-ratio:1.2;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--card-shadow);font-size:18px;font-weight:700;color:#333;transition:all .2s;border:2px solid transparent}
 .pinyin-card:active{transform:scale(.85);border-color:var(--red);background:#FFF1F0}
+/* 拼音 · 首页入口 */
+.py-entries{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:10px}
+.py-entry{background:#fff;border-radius:20px;padding:16px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;box-shadow:var(--card-shadow);transition:all .2s;border:2px solid transparent}
+.py-entry:active{transform:scale(.94);border-color:var(--red);background:#FFF9F6}
+.py-entry .py-entry-icon{font-size:30px;line-height:1}
+.py-entry .py-entry-name{font-size:16px;font-weight:800;color:#333}
+.py-entry .py-entry-sub{font-size:11px;color:#999;margin-top:2px}
+/* 拼音 · 子视图 */
+.py-view{display:none}
+.py-view.show{display:block;animation:fadeIn .3s}
+.py-back{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border:none;border-radius:20px;background:#FFF1F0;color:var(--red);font-size:14px;font-weight:800;cursor:pointer;margin:10px 0}
+.py-back:active{transform:scale(.93)}
+.py-bar{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:4px 2px 10px}
+.py-count{font-size:13px;color:#999;font-weight:700}
+.py-auto{padding:9px 16px;border:none;border-radius:20px;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(232,93,93,.3)}
+.py-auto:active{transform:scale(.93)}
+/* 拼音 · 详情 */
+.py-detail-card{background:#fff;border-radius:22px;padding:18px;box-shadow:var(--card-shadow);margin-bottom:12px;text-align:center}
+.py-detail-char{font-size:66px;font-weight:900;color:var(--red);line-height:1.1;letter-spacing:2px}
+.py-detail-tag{display:inline-block;padding:3px 12px;background:#FFF1F0;color:var(--red);border-radius:12px;font-size:12px;font-weight:800;margin-top:8px}
+.py-listen{display:flex;gap:10px;justify-content:center;margin-top:14px}
+.py-listen button{flex:1;max-width:150px;padding:13px 8px;border:none;border-radius:16px;font-size:15px;font-weight:800;cursor:pointer;color:#fff;background:linear-gradient(135deg,var(--blue),var(--purple));box-shadow:0 4px 12px rgba(91,158,255,.35)}
+.py-listen button.broadcast{background:linear-gradient(135deg,var(--red),var(--orange));box-shadow:0 4px 12px rgba(232,93,93,.35)}
+.py-listen button:active{transform:scale(.92)}
+.py-block{background:#fff;border-radius:18px;padding:14px;box-shadow:var(--card-shadow);margin-bottom:12px}
+.py-block-title{font-size:14px;font-weight:800;color:var(--red);margin-bottom:10px;padding-left:8px;border-left:4px solid var(--orange)}
+.py-tip{font-size:14px;line-height:1.75;color:#555}
+.py-word{font-size:15px;font-weight:800;color:var(--blue);margin-top:8px}
+.py-tones{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.py-tone{background:#FFF9F0;border-radius:14px;padding:12px 4px;text-align:center;cursor:pointer;transition:all .2s;border:2px solid transparent}
+.py-tone:active{transform:scale(.9);border-color:var(--red);background:#FFE4D0}
+.py-tone .t-glyph{font-size:25px;font-weight:800;color:#333;line-height:1.2}
+.py-tone .t-num{font-size:11px;color:#999;margin-top:2px}
+/* 拼音 · 描红 */
+.py-write-wrap{text-align:center}
+.py-write{width:100%;max-width:260px;height:195px;background:#FFFDF7;border:2px dashed #FFD9C0;border-radius:16px;touch-action:none;display:block;margin:0 auto}
+.py-write-tools{display:flex;gap:10px;justify-content:center;margin-top:10px}
+.py-write-tools button{padding:9px 20px;border:none;border-radius:16px;font-size:13px;font-weight:800;cursor:pointer;background:#F3F4F6;color:#666}
+.py-write-tools button:active{transform:scale(.93)}
 
 /* 语文 - 识字卡片 */
 .char-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding-top:8px}
@@ -146,6 +185,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 
 /* 数学 - 小节标题 */
 .sec-title{font-size:15px;font-weight:800;color:#0E9F6E;margin:18px 4px 2px;padding-left:6px;border-left:4px solid #34D399}
+
+/* 数学 · 数感练习 */
+.sense-card{background:#fff;border-radius:18px;padding:14px;box-shadow:var(--card-shadow);margin-bottom:12px}
+.sense-title{font-size:14px;font-weight:800;color:#0E9F6E;margin-bottom:10px;padding-left:8px;border-left:4px solid #34D399}
+.sense-expr{font-size:34px;font-weight:900;color:#0E9F6E;text-align:center;margin:6px 0 14px;letter-spacing:2px}
+.sense-expr .blank{color:#F59E0B}
+.sense-opts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.sense-opt{flex:1;max-width:110px;min-width:58px;padding:14px 6px;font-size:22px;font-weight:800;border:3px solid #E5E7EB;border-radius:16px;background:#fff;cursor:pointer;color:#333;transition:all .2s}
+.sense-opt:active{transform:scale(.93)}
+.sense-opt.correct{border-color:var(--green);background:#D1FAE5;color:#065F46;animation:wiggle .3s}
+.sense-opt.wrong{border-color:var(--pink);background:#FFE4E6;color:#9B1C1C}
+.sense-feedback{text-align:center;font-size:14px;font-weight:700;margin-top:10px;min-height:21px}
+.sense-next{display:block;margin:12px auto 0;padding:9px 20px;border:none;border-radius:16px;background:#F3F4F6;color:#666;font-size:13px;font-weight:800;cursor:pointer}
+.sense-next:active{transform:scale(.93)}
+.sense-count{font-size:26px;line-height:1.5;text-align:center;letter-spacing:3px;margin:8px 0 14px;word-break:break-all}
 
 /* 数学 - 乘法口诀 */
 .times-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding-top:8px}
@@ -328,6 +382,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 <div class="lang-panel" id="panelMath">
     <nav class="tab-bar" id="mathTabBar">
         <button class="tab active math-tab" data-math="num">🔢认数</button>
+        <button class="tab math-tab" data-math="sense">🎯数感</button>
         <button class="tab math-tab" data-math="arith">➕加减</button>
         <button class="tab math-tab" data-math="times">✖️口诀</button>
         <button class="tab math-tab" data-math="shape">🔷图形</button>
@@ -335,6 +390,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
         <button class="tab math-tab" data-math="mquiz">🎮测验</button>
     </nav>
     <div class="tab-panel active" id="math-num"><div class="num-grid" id="numGrid"></div></div>
+    <div class="tab-panel" id="math-sense">
+        <div class="sense-card" id="senseCompare"></div>
+        <div class="sense-card" id="senseDecompose"></div>
+        <div class="sense-card" id="senseCompose"></div>
+        <div class="sense-card" id="senseCount"></div>
+    </div>
     <div class="tab-panel" id="math-arith">
         <div class="sec-title">10 以内</div><div class="arith-grid" id="arithGrid"></div>
         <div class="sec-title">20 以内（凑十法）</div><div class="arith-grid" id="arithGrid20"></div>
@@ -428,14 +489,97 @@ var dialogues=[
 {speaker:'👩\u200D🏫',en:'Time to go home!',zh:'该回家了！'},{speaker:'👦',en:'See you tomorrow!',zh:'明天见！'}
 ]}];
 
-var pinyinData=[
-{title:'声母 b p m f',items:['b','p','m','f']},{title:'声母 d t n l',items:['d','t','n','l']},
-{title:'声母 g k h',items:['g','k','h']},{title:'声母 j q x',items:['j','q','x']},
-{title:'声母 zh ch sh r',items:['zh','ch','sh','r']},{title:'声母 z c s',items:['z','c','s']},
-{title:'声母 y w',items:['y','w']},{title:'单韵母 a o e i u \u00fc',items:['a','o','e','i','u','\u00fc']},
-{title:'复韵母 ai ei ui ao ou iu',items:['ai','ei','ui','ao','ou','iu']},{title:'复韵母 ie \u00fce er',items:['ie','\u00fce','er']},
-{title:'鼻韵母 an en in un \u00fcn',items:['an','en','in','un','\u00fcn']},{title:'后鼻韵母 ang eng ing ong',items:['ang','eng','ing','ong']}
-];
+// 参考「声韵母学习」小程序：声母表 / 韵母表 / 整体认读 / 音调表 / 拼读学习 / 拼音书写
+var pyGroups={
+shengmu:{name:'声母表',icon:'🔠',sub:'共 23 个',items:['b','p','m','f','d','t','n','l','g','k','h','j','q','x','zh','ch','sh','r','z','c','s','y','w']},
+yunmu:{name:'韵母表',icon:'🔡',sub:'共 24 个',items:['a','o','e','i','u','ü','ai','ei','ui','ao','ou','iu','ie','üe','er','an','en','in','un','ün','ang','eng','ing','ong']},
+zhengti:{name:'整体认读',icon:'📗',sub:'共 16 个',items:['zhi','chi','shi','ri','zi','ci','si','yi','wu','yu','ye','yue','yuan','yin','yun','ying']}
+};
+// 声母示范音节（四声调演示用）
+var pySyl={b:'ba',p:'po',m:'ma',f:'fa',d:'da',t:'ta',n:'na',l:'la',g:'ge',k:'ke',h:'he',j:'ji',q:'qi',x:'xi',zh:'zhi',ch:'chi',sh:'shi',r:'ri',z:'zi',c:'ci',s:'si',y:'yi',w:'wu'};
+// 发音要领 + 例词
+var pyTips={
+b:['双唇紧闭，然后突然放开，让气流出来，发音要轻短。','爸爸 bà ba'],
+p:['双唇紧闭后突然放开，有一股较强的气流冲出来。','泡泡 pào pao'],
+m:['双唇闭合，气流从鼻腔出来，声音可以拖长。','妈妈 mā ma'],
+f:['上齿轻轻接触下唇，让气流从缝隙中摩擦出来。','风筝 fēng zheng'],
+d:['舌尖抵住上牙床，然后突然放开。','大海 dà hǎi'],
+t:['舌尖抵住上牙床后突然放开，气流较强。','太阳 tài yáng'],
+n:['舌尖抵住上牙床，气流从鼻腔出来。','你好 nǐ hǎo'],
+l:['舌尖抵住上牙床，让气流从舌头两边出来。','蓝天 lán tiān'],
+g:['舌根抵住软腭，然后突然放开。','哥哥 gē ge'],
+k:['舌根抵住软腭后突然放开，气流较强。','口渴 kǒu kě'],
+h:['舌根接近软腭，让气流摩擦出来。','喝水 hē shuǐ'],
+j:['舌面前部抵住硬腭，轻轻放开。','小鸡 xiǎo jī'],
+q:['舌面前部抵住硬腭后放开，气流较强。','七个 qī gè'],
+x:['舌面前部靠近硬腭，让气流摩擦出来。','西瓜 xī guā'],
+zh:['舌尖上翘抵住硬腭，然后突然放开。','知道 zhī dào'],
+ch:['舌尖上翘抵住硬腭后放开，气流较强。','吃饭 chī fàn'],
+sh:['舌尖上翘靠近硬腭，让气流摩擦出来。','狮子 shī zi'],
+r:['舌尖上翘靠近硬腭，气流摩擦，声带要振动。','日出 rì chū'],
+z:['舌尖抵住上牙门齿，然后突然放开。','汉字 hàn zì'],
+c:['舌尖抵住上齿，气流较强地冲出来。','一次 yí cì'],
+s:['舌尖靠近上齿，让气流摩擦出来。','丝瓜 sī guā'],
+y:['读 y 时口形接近 i，快速滑过。','一个 yí gè'],
+w:['读 w 时口形接近 u，快速滑过。','五个 wǔ gè'],
+a:['嘴巴张大，舌面中间稍稍隆起，声带颤动。','阿姨 ā yí'],
+o:['嘴唇拢圆，舌头向后缩。','公鸡打鸣 ō ō'],
+e:['嘴角向两边展开，舌面后部抬起。','白鹅 bái é'],
+i:['嘴角向两边咧开，牙齿对齐。','衣服 yī fu'],
+u:['嘴唇收圆并向前突出。','乌鸦 wū yā'],
+'ü':['嘴唇收圆成小孔，舌头前部抬起。','小鱼 xiǎo yú'],
+ai:['先发 a，再快速滑向 i，一口气读出来。','爱心 ài xīn'],
+ei:['先发 e，再快速滑向 i。','杯子 bēi zi'],
+ui:['先发 u，再快速滑向 i。','喝水 hē shuǐ'],
+ao:['先发 a，再快速滑向 o。','好孩子 hǎo'],
+ou:['先发 o，再快速滑向 u。','莲藕 lián ǒu'],
+iu:['先发 i，再快速滑向 u。','六个 liù gè'],
+ie:['先发 i，再快速滑向 e。','树叶 shù yè'],
+'üe':['先发 ü，再快速滑向 e。','月亮 yuè liang'],
+er:['发 e 的时候，舌头轻轻卷起来。','耳朵 ěr duo'],
+an:['先发 a，舌尖最后抵住上牙床收尾。','安全 ān quán'],
+en:['先发 e，舌尖最后抵住上牙床收尾。','感恩 gǎn ēn'],
+in:['先发 i，舌尖最后抵住上牙床收尾。','音乐 yīn yuè'],
+un:['先发 u，舌尖最后抵住上牙床收尾。','春天 chūn tiān'],
+'ün':['先发 ü，舌尖最后抵住上牙床收尾。','白云 bái yún'],
+ang:['先发 a，舌根最后抵住软腭收尾。','帮忙 bāng máng'],
+eng:['先发 e，舌根最后抵住软腭收尾。','电灯 diàn dēng'],
+ing:['先发 i，舌根最后抵住软腭收尾。','星星 xīng xing'],
+ong:['先发 o，舌根最后抵住软腭收尾。','红色 hóng sè'],
+zhi:['整体认读，读作「知」，舌尖上翘。','知道 zhī dào'],
+chi:['整体认读，读作「吃」。','吃饭 chī fàn'],
+shi:['整体认读，读作「诗」。','老师 lǎo shī'],
+ri:['整体认读，读作「日」。','日子 rì zi'],
+zi:['整体认读，读作「资」。','汉字 hàn zì'],
+ci:['整体认读，读作「次」。','一次 yí cì'],
+si:['整体认读，读作「丝」。','四个 sì gè'],
+yi:['整体认读，读作「衣」。','衣服 yī fu'],
+wu:['整体认读，读作「乌」。','五个 wǔ gè'],
+yu:['整体认读，读作「鱼」。','小鱼 xiǎo yú'],
+ye:['整体认读，读作「椰」。','树叶 shù yè'],
+yue:['整体认读，读作「约」。','月亮 yuè liang'],
+yuan:['整体认读，读作「圆」。','圆形 yuán xíng'],
+yin:['整体认读，读作「音」。','音乐 yīn yuè'],
+yun:['整体认读，读作「云」。','白云 bái yún'],
+ying:['整体认读，读作「鹰」。','老鹰 lǎo yīng']
+};
+var pyToneMap={a:['ā','á','ǎ','à'],o:['ō','ó','ǒ','ò'],e:['ē','é','ě','è'],i:['ī','í','ǐ','ì'],u:['ū','ú','ǔ','ù'],'ü':['ǖ','ǘ','ǚ','ǜ']};
+// 标调规则：有 a 标 a，没 a 找 o e；iu 标 u，ui 标 i；单韵母标本身
+function pyAddTone(py,t){
+  var idx=-1,ch='';
+  if(py.indexOf('a')>=0){idx=py.indexOf('a');ch='a'}
+  else if(py.indexOf('o')>=0){idx=py.indexOf('o');ch='o'}
+  else if(py.indexOf('e')>=0){idx=py.indexOf('e');ch='e'}
+  else if(py.indexOf('iu')>=0){idx=py.indexOf('iu')+1;ch='u'}
+  else if(py.indexOf('ui')>=0){idx=py.indexOf('ui')+1;ch='i'}
+  else if(py.indexOf('i')>=0){idx=py.indexOf('i');ch='i'}
+  else if(py.indexOf('u')>=0){idx=py.indexOf('u');ch='u'}
+  else if(py.indexOf('ü')>=0){idx=py.indexOf('ü');ch='ü'}
+  if(idx<0) return py;
+  return py.slice(0,idx)+pyToneMap[ch][t]+py.slice(idx+1);
+}
+// 双拼音节（拼读学习）
+var pyDbl=['ba','bo','bi','bu','pa','po','pi','pu','ma','mo','me','mi','mu','fa','fo','fu','da','de','di','du','ta','te','ti','tu','na','ne','ni','nu','la','le','li','lu','ga','ge','gu','ka','ke','ku','ha','he','hu','ji','ju','qi','qu','xi','xu','zhi','zhe','chi','che','shi','she','ri','re','zi','ze','ci','ce','si','se','ya','ye','wa','wo'];
 
 // 汉字数据：Hanzi Writer 通过 CDN 加载笔画数据
 // 字段：ch 汉字 / py 拼音 / m 中文释义 / picto 象形图 / n 笔画数
@@ -1003,20 +1147,227 @@ function initDialogues(){
 }
 
 // ==================== 语文模块 ====================
-function initPinyin(){
-    var container=Q('pinyinContainer');container.innerHTML='';
-    pinyinData.forEach(function(group){
-        var sec=document.createElement('div');sec.className='pinyin-section';
-        var grid=document.createElement('div');grid.className='pinyin-grid';
-        group.items.forEach(function(py){
-            var card=document.createElement('div');card.className='pinyin-card';card.textContent=py;
-            card.addEventListener('click',function(){speak(py,'zh-CN')});
-            grid.appendChild(card);
-        });
-        sec.innerHTML='<div class="pinyin-section-title">'+group.title+'</div>';
-        sec.appendChild(grid);
-        container.appendChild(sec);
+function initPinyin(){ pyRenderEntry(); }
+
+function pyRenderEntry(){
+    var box=Q('pinyinContainer');
+    var entries=[
+        {k:'shengmu',icon:'🔠',name:'声母表',sub:'共 23 个'},
+        {k:'yunmu',icon:'🔡',name:'韵母表',sub:'共 24 个'},
+        {k:'zhengti',icon:'📗',name:'整体认读',sub:'共 16 个'},
+        {k:'tone',icon:'🎵',name:'音调表',sub:'四声调读法'},
+        {k:'pindu',icon:'🔗',name:'拼读学习',sub:'双拼拼一拼'},
+        {k:'write',icon:'✍️',name:'拼音书写',sub:'描一描写一写'}
+    ];
+    var h='<div class="py-view show" id="pyEntry"><div class="py-entries">';
+    entries.forEach(function(e){
+        h+='<div class="py-entry" data-py="'+e.k+'"><span class="py-entry-icon">'+e.icon+'</span><div><div class="py-entry-name">'+e.name+'</div><div class="py-entry-sub">'+e.sub+'</div></div></div>';
     });
+    h+='</div></div>';
+    h+='<div class="py-view" id="pyListView"></div><div class="py-view" id="pyDetailView"></div><div class="py-view" id="pyToneView"></div><div class="py-view" id="pyPinduView"></div><div class="py-view" id="pyWriteView"></div>';
+    box.innerHTML=h;
+    box.querySelectorAll('.py-entry').forEach(function(el){
+        el.addEventListener('click',function(){pyOpen(el.dataset.py)});
+    });
+}
+
+function pyHideAll(){
+    Q('pinyinContainer').querySelectorAll('.py-view').forEach(function(v){v.classList.remove('show')});
+}
+function pyShowEntry(){ pyHideAll(); Q('pyEntry').classList.add('show'); }
+function pyOpen(k){
+    pyHideAll();
+    if(k==='shengmu'||k==='yunmu'||k==='zhengti') pyRenderList(k);
+    else if(k==='tone') pyRenderToneTable();
+    else if(k==='pindu') pyRenderPindu();
+    else if(k==='write') pyRenderWrite();
+}
+function pyBackBtn(){
+    var b=document.createElement('button');
+    b.className='py-back'; b.textContent='‹ 返回';
+    b.addEventListener('click',pyShowEntry);
+    return b;
+}
+
+function pyRenderList(k){
+    var g=pyGroups[k], v=Q('pyListView');
+    v.classList.add('show'); v.innerHTML='';
+    v.appendChild(pyBackBtn());
+    var bar=document.createElement('div'); bar.className='py-bar';
+    bar.innerHTML='<span class="py-count">'+g.name+' · '+g.sub+'</span>';
+    var auto=document.createElement('button'); auto.className='py-auto'; auto.textContent='▶ 自动播放';
+    bar.appendChild(auto);
+    v.appendChild(bar);
+    var grid=document.createElement('div'); grid.className='pinyin-grid';
+    g.items.forEach(function(py){
+        var card=document.createElement('div'); card.className='pinyin-card'; card.textContent=py;
+        card.addEventListener('click',function(){pyShowDetail(py,k)});
+        grid.appendChild(card);
+    });
+    v.appendChild(grid);
+    auto.addEventListener('click',function(){
+        if(auto.dataset.playing==='1') return;
+        auto.dataset.playing='1'; auto.textContent='播放中…';
+        var i=0;
+        (function step(){
+            if(i>=g.items.length){ auto.textContent='▶ 自动播放'; auto.dataset.playing='0'; return; }
+            speak(g.items[i],'zh-CN'); i++;
+            setTimeout(step,1300);
+        })();
+    });
+}
+
+function pyShowDetail(py,grp){
+    pyHideAll();
+    var v=Q('pyDetailView'); v.classList.add('show'); v.innerHTML='';
+    var back=document.createElement('button'); back.className='py-back'; back.textContent='‹ 返回';
+    back.addEventListener('click',function(){pyOpen(grp)});
+    v.appendChild(back);
+
+    var info=pyTips[py]||['跟着读一遍，注意口形。',''];
+    var tagName=grp==='shengmu'?'声母':(grp==='yunmu'?'韵母':'整体认读音节');
+    var toneBase=(grp==='shengmu')?(pySyl[py]||py):py;
+    var tones=[0,1,2,3].map(function(t){return pyAddTone(toneBase,t)});
+
+    var card=document.createElement('div'); card.className='py-detail-card';
+    card.innerHTML='<div class="py-detail-char">'+py+'</div><span class="py-detail-tag">'+tagName+'</span>';
+    var listen=document.createElement('div'); listen.className='py-listen';
+    var b1=document.createElement('button'); b1.className='broadcast'; b1.textContent='🔊 点我听广播';
+    var b2=document.createElement('button'); b2.textContent='🗣️ 跟我读一遍';
+    b1.addEventListener('click',function(){speak(py,'zh-CN')});
+    b2.addEventListener('click',function(){speak(py,'zh-CN')});
+    listen.appendChild(b1); listen.appendChild(b2);
+    card.appendChild(listen);
+    v.appendChild(card);
+
+    var block1=document.createElement('div'); block1.className='py-block';
+    block1.innerHTML='<div class="py-block-title">📖 发音要领</div><div class="py-tip">'+info[0]+'</div>'+(info[1]?'<div class="py-word">例：'+info[1]+'</div>':'');
+    v.appendChild(block1);
+
+    var block2=document.createElement('div'); block2.className='py-block';
+    block2.innerHTML='<div class="py-block-title">🎵 四声调读法 · 点卡片听发音</div>';
+    var tbox=document.createElement('div'); tbox.className='py-tones';
+    tones.forEach(function(t,i){
+        var d=document.createElement('div'); d.className='py-tone';
+        d.innerHTML='<div class="t-glyph">'+t+'</div><div class="t-num">'+(i+1)+'声</div>';
+        d.addEventListener('click',function(){speak(t,'zh-CN')});
+        tbox.appendChild(d);
+    });
+    block2.appendChild(tbox);
+    v.appendChild(block2);
+
+    var block3=document.createElement('div'); block3.className='py-block';
+    block3.innerHTML='<div class="py-block-title">✍️ 写一写 · 照着灰字描一描</div><div class="py-write-wrap"><canvas class="py-write" width="480" height="360"></canvas><div class="py-write-tools"><button class="pw-clear">🧽 擦掉重写</button></div></div>';
+    v.appendChild(block3);
+    pyInitWrite(block3.querySelector('.py-write'),py);
+}
+
+function pyRenderToneTable(){
+    var v=Q('pyToneView'); v.classList.add('show'); v.innerHTML='';
+    v.appendChild(pyBackBtn());
+    var samples=[['a','啊'],['o','哦'],['e','鹅'],['i','衣'],['u','乌'],['ü','鱼']];
+    var block=document.createElement('div'); block.className='py-block';
+    block.innerHTML='<div class="py-block-title">🎵 音调表 · 点卡片听四声</div>';
+    samples.forEach(function(s){
+        var wrap=document.createElement('div'); wrap.style.marginBottom='16px';
+        var lbl=document.createElement('div'); lbl.className='py-tip'; lbl.style.marginBottom='6px';
+        lbl.textContent=s[0]+'（'+s[1]+'）';
+        wrap.appendChild(lbl);
+        var row=document.createElement('div'); row.className='py-tones';
+        [0,1,2,3].forEach(function(t){
+            var tone=pyAddTone(s[0],t);
+            var d=document.createElement('div'); d.className='py-tone';
+            d.innerHTML='<div class="t-glyph">'+tone+'</div><div class="t-num">'+(t+1)+'声</div>';
+            d.addEventListener('click',function(){speak(tone,'zh-CN')});
+            row.appendChild(d);
+        });
+        wrap.appendChild(row);
+        block.appendChild(wrap);
+    });
+    v.appendChild(block);
+}
+
+function pyRenderPindu(){
+    var v=Q('pyPinduView'); v.classList.add('show'); v.innerHTML='';
+    v.appendChild(pyBackBtn());
+    var block=document.createElement('div'); block.className='py-block';
+    block.innerHTML='<div class="py-block-title">🔗 拼读学习 · 双拼</div><div class="py-tip" style="margin-bottom:10px">声母 + 韵母 = 一个音节，例如 b + a → ba。点一点听读音。</div>';
+    var grid=document.createElement('div'); grid.className='pinyin-grid';
+    pyDbl.forEach(function(s){
+        var c=document.createElement('div'); c.className='pinyin-card'; c.textContent=s;
+        c.addEventListener('click',function(){speak(s,'zh-CN')});
+        grid.appendChild(c);
+    });
+    block.appendChild(grid);
+    v.appendChild(block);
+}
+
+function pyRenderWrite(){
+    var v=Q('pyWriteView'); v.classList.add('show'); v.innerHTML='';
+    v.appendChild(pyBackBtn());
+    var block=document.createElement('div'); block.className='py-block';
+    block.innerHTML='<div class="py-block-title">✍️ 拼音书写 · 先选一个字母</div>';
+    var pick=document.createElement('div'); pick.className='pinyin-grid';
+    var letters=['a','o','e','i','u','ü','b','p','m','f','d','t','n','l','g','k','h'];
+    var wrap=document.createElement('div'); wrap.className='py-write-wrap'; wrap.style.marginTop='16px';
+    wrap.innerHTML='<canvas class="py-write" width="480" height="360"></canvas><div class="py-write-tools"><button class="pw-clear">🧽 擦掉重写</button></div>';
+    letters.forEach(function(p){
+        var c=document.createElement('div'); c.className='pinyin-card'; c.textContent=p;
+        c.addEventListener('click',function(){
+            pick.querySelectorAll('.pinyin-card').forEach(function(x){x.style.background='#fff';x.style.borderColor='transparent'});
+            c.style.background='#FFF1F0'; c.style.borderColor='var(--red)';
+            pyInitWrite(wrap.querySelector('.py-write'),p);
+        });
+        pick.appendChild(c);
+    });
+    block.appendChild(pick);
+    block.appendChild(wrap);
+    v.appendChild(block);
+    pyInitWrite(wrap.querySelector('.py-write'),'a');
+}
+
+function pyInitWrite(canvas,py){
+    if(!canvas) return;
+    var ctx=canvas.getContext('2d'), W=canvas.width, H=canvas.height;
+    function drawBg(){
+        ctx.clearRect(0,0,W,H);
+        ctx.strokeStyle='#FFE0CC'; ctx.lineWidth=2;
+        [H*0.24,H*0.5,H*0.76].forEach(function(y){
+            ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+        });
+        ctx.setLineDash([10,10]); ctx.strokeStyle='#FFD2B8';
+        ctx.beginPath(); ctx.moveTo(W/2,0); ctx.lineTo(W/2,H); ctx.stroke(); ctx.setLineDash([]);
+        ctx.fillStyle='#EFE0D6'; ctx.textAlign='center'; ctx.textBaseline='middle';
+        var fs=py.length>2?150:(py.length>1?185:230);
+        ctx.font='bold '+fs+'px "Times New Roman",Georgia,serif';
+        ctx.fillText(py,W/2,H*0.52);
+    }
+    drawBg();
+    var drawing=false,last=null;
+    function pos(e){
+        var r=canvas.getBoundingClientRect();
+        var t=(e.touches&&e.touches[0])?e.touches[0]:e;
+        return {x:(t.clientX-r.left)*(W/r.width),y:(t.clientY-r.top)*(H/r.height)};
+    }
+    function start(e){ e.preventDefault(); drawing=true; last=pos(e); }
+    function move(e){
+        if(!drawing) return;
+        e.preventDefault();
+        var p=pos(e);
+        ctx.strokeStyle='#E85D5D'; ctx.lineWidth=12; ctx.lineCap='round'; ctx.lineJoin='round';
+        ctx.beginPath(); ctx.moveTo(last.x,last.y); ctx.lineTo(p.x,p.y); ctx.stroke();
+        last=p;
+    }
+    function end(){ drawing=false; }
+    canvas.addEventListener('mousedown',start);
+    canvas.addEventListener('mousemove',move);
+    canvas.addEventListener('mouseup',end);
+    canvas.addEventListener('mouseleave',end);
+    canvas.addEventListener('touchstart',start,{passive:false});
+    canvas.addEventListener('touchmove',move,{passive:false});
+    canvas.addEventListener('touchend',end);
+    var clr=canvas.parentNode.querySelector('.pw-clear');
+    if(clr) clr.addEventListener('click',drawBg);
 }
 
 function initChars(){
@@ -1160,6 +1511,108 @@ function switchLang(lang){
 }
 
 // ==================== 数学模块 ====================
+// —— 数感练习（参考「数感练习」小程序：比大小 / 数的分解 / 数的合成 / 数一数）——
+function initSense(){
+    senseCompareNew(); senseDecomposeNew(); senseComposeNew(); senseCountNew();
+}
+// 通用选项：选中后判对错
+function sensePick(box,fb,opts,ans,onRight){
+    box.innerHTML=''; fb.textContent=''; fb.style.color='';
+    var done=false;
+    opts.forEach(function(v){
+        var b=document.createElement('button');
+        b.className='sense-opt'; b.textContent=v;
+        b.addEventListener('click',function(){
+            if(done) return; done=true;
+            if(String(v)===String(ans)){
+                b.classList.add('correct');
+                fb.textContent='✅ 答对啦！'; fb.style.color='var(--green)';
+                if(onRight) onRight();
+            }else{
+                b.classList.add('wrong');
+                fb.textContent='❌ 答案是 '+ans; fb.style.color='var(--pink)';
+                box.querySelectorAll('.sense-opt').forEach(function(x){
+                    if(String(x.textContent)===String(ans)) x.classList.add('correct');
+                });
+            }
+        });
+        box.appendChild(b);
+    });
+}
+function senseOpts(ans,min,max){
+    var s=[ans];
+    while(s.length<4){
+        var c=min+Math.floor(Math.random()*(max-min+1));
+        if(s.indexOf(c)===-1) s.push(c);
+    }
+    shuffle(s);
+    return s;
+}
+// 1. 比大小
+function senseCompareNew(){
+    var card=Q('senseCompare');
+    var max=Math.random()<0.5?10:20;
+    var a=Math.floor(Math.random()*(max+1));
+    var b=Math.random()<0.15?a:Math.floor(Math.random()*(max+1));
+    var ans=a>b?'>':(a<b?'<':'=');
+    card.innerHTML='<div class="sense-title">⚖️ 比一比 · 填 &gt; &lt; =</div>'+
+        '<div class="sense-expr"><span>'+a+'</span> <span class="blank">○</span> <span>'+b+'</span></div>'+
+        '<div class="sense-opts" id="senseCmpOpts"></div>'+
+        '<div class="sense-feedback" id="senseCmpFb"></div>'+
+        '<button class="sense-next" id="senseCmpNext">🔄 换一题</button>';
+    sensePick(Q('senseCmpOpts'),Q('senseCmpFb'),['>','<','='],ans,function(){
+        speak(a+(ans==='>'?' 大于 ':ans==='<'?' 小于 ':' 等于 ')+b,'zh-CN');
+    });
+    Q('senseCmpNext').addEventListener('click',senseCompareNew);
+}
+// 2. 数的分解
+function senseDecomposeNew(){
+    var card=Q('senseDecompose');
+    var total=Math.floor(Math.random()*9)+2;
+    var left=Math.floor(Math.random()*(total-1))+1;
+    var ans=total-left;
+    card.innerHTML='<div class="sense-title">🧩 数的分解 · 10 以内</div>'+
+        '<div class="sense-expr">'+total+' = <span class="blank">'+left+'</span> + <span class="blank">?</span></div>'+
+        '<div class="sense-opts" id="senseDecOpts"></div>'+
+        '<div class="sense-feedback" id="senseDecFb"></div>'+
+        '<button class="sense-next" id="senseDecNext">🔄 换一题</button>';
+    sensePick(Q('senseDecOpts'),Q('senseDecFb'),senseOpts(ans,1,total),ans,function(){
+        speak(total+' 可以分成 '+left+' 和 '+ans,'zh-CN');
+    });
+    Q('senseDecNext').addEventListener('click',senseDecomposeNew);
+}
+// 3. 数的合成
+function senseComposeNew(){
+    var card=Q('senseCompose');
+    var a=Math.floor(Math.random()*5)+1, b=Math.floor(Math.random()*5)+1;
+    var ans=a+b;
+    card.innerHTML='<div class="sense-title">➕ 数的合成 · 10 以内</div>'+
+        '<div class="sense-expr"><span class="blank">'+a+'</span> 和 <span class="blank">'+b+'</span> 合成 <span>?</span></div>'+
+        '<div class="sense-opts" id="senseComOpts"></div>'+
+        '<div class="sense-feedback" id="senseComFb"></div>'+
+        '<button class="sense-next" id="senseComNext">🔄 换一题</button>';
+    sensePick(Q('senseComOpts'),Q('senseComFb'),senseOpts(ans,1,10),ans,function(){
+        speak(a+' 和 '+b+' 合起来是 '+ans,'zh-CN');
+    });
+    Q('senseComNext').addEventListener('click',senseComposeNew);
+}
+// 4. 数一数填数字
+function senseCountNew(){
+    var card=Q('senseCount');
+    var n=Math.floor(Math.random()*9)+2;
+    var emoji=['🍎','⭐','🐟','🌸','🎈','🍌','🐣'][Math.floor(Math.random()*7)];
+    var pic=Array(n+1).join(emoji);
+    card.innerHTML='<div class="sense-title">👀 数一数 · 有几个？</div>'+
+        '<div class="sense-count">'+pic+'</div>'+
+        '<div class="sense-opts" id="senseCntOpts"></div>'+
+        '<div class="sense-feedback" id="senseCntFb"></div>'+
+        '<button class="sense-next" id="senseCntNext">🔄 换一题</button>';
+    sensePick(Q('senseCntOpts'),Q('senseCntFb'),senseOpts(n,1,10),n,function(){
+        speak(n,'zh-CN');
+    });
+    Q('senseCntNext').addEventListener('click',senseCountNew);
+}
+
 function initNums(){
     var g=Q('numGrid');g.innerHTML='';
     numbers.forEach(function(item){
@@ -1311,6 +1764,7 @@ function initMathTabs(){
             Q('panelMath').querySelectorAll('.tab-panel').forEach(function(x){x.classList.remove('active')});
             this.classList.add('active');Q('math-'+t).classList.add('active');
             if(t==='mquiz') initMathQuiz();
+            if(t==='sense') initSense();
         });
     });
 }
@@ -1326,7 +1780,7 @@ Q('modalBody').addEventListener('click',onLearnAction);
 if('speechSynthesis' in window){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=function(){speechSynthesis.getVoices()}}
 initAlphabet();initCategoryBar();renderWordGrid();initDialogues();initEnTabs();initEnQuiz();
 initPinyin();initChars();initPoems();initCnTabs();
-initNums();initArith();initArith20();initTimes();initShapes();initShapes3d();initClock();initMathTabs();
+initNums();initArith();initArith20();initTimes();initShapes();initShapes3d();initClock();initSense();initMathTabs();
 })();
 </script>
 </body>
